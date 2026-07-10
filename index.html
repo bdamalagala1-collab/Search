@@ -1,426 +1,383 @@
-<!DOCTYPE html>
-<html lang="en">
+'<!DOCTYPE html>
+<html lang="kn" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#7f1d1d">
-<title>MBDAAOWA — Resident Search</title>
+<title>MBDAAOWA — ನಿವಾಸಿ ಹುಡುಕಾಟ</title>
 <style>
-/* ── Reset & Base ── */
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --red:#7f1d1d;--red2:#991b1b;--red-light:#fef2f2;
-  --blue:#1e3a5f;--blue2:#1e40af;
+  --bg:#f4f5f7;--surface:#fff;--surface2:#f9fafb;
+  --border:#e5e7eb;--border2:#d1d5db;
+  --text:#111827;--text2:#374151;--text3:#6b7280;--text4:#9ca3af;
+  --red:#7f1d1d;--red2:#991b1b;--red3:#fef2f2;--red-t:#7f1d1d;
+  --blue:#1e40af;--blue-bg:#dbeafe;
   --green:#166534;--green-bg:#dcfce7;
   --amber:#92400e;--amber-bg:#fef3c7;
   --purple:#5b21b6;--purple-bg:#ede9fe;
   --teal:#0f766e;--teal-bg:#ccfbf1;
-  --gray-50:#f9fafb;--gray-100:#f3f4f6;--gray-200:#e5e7eb;
-  --gray-300:#d1d5db;--gray-400:#9ca3af;--gray-500:#6b7280;
-  --gray-700:#374151;--gray-800:#1f2937;--gray-900:#111827;
-  --shadow:0 1px 3px rgba(0,0,0,.1),0 1px 2px rgba(0,0,0,.06);
-  --shadow-md:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -1px rgba(0,0,0,.06);
-  --radius:10px;
+  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+  --sh-md:0 4px 12px rgba(0,0,0,.10),0 2px 4px rgba(0,0,0,.05);
+  --r:10px;--rl:14px;
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
-  background:var(--gray-50);color:var(--gray-800);font-size:14px;min-height:100vh}
+[data-theme="dark"]{
+  --bg:#0f1117;--surface:#1a1d24;--surface2:#23262f;
+  --border:#2d3139;--border2:#3d4149;
+  --text:#f1f5f9;--text2:#cbd5e1;--text3:#94a3b8;--text4:#64748b;
+  --red:#ef4444;--red2:#f87171;--red3:#2d1515;--red-t:#fca5a5;
+  --blue:#60a5fa;--blue-bg:#1e3a5f;
+  --green:#4ade80;--green-bg:#14532d;
+  --amber:#fbbf24;--amber-bg:#451a03;
+  --purple:#a78bfa;--purple-bg:#2e1065;
+  --teal:#2dd4bf;--teal-bg:#042f2e;
+  --sh:0 1px 3px rgba(0,0,0,.4);--sh-md:0 4px 12px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Noto Sans Kannada",sans-serif;
+  background:var(--bg);color:var(--text);font-size:14px;min-height:100vh;transition:background .2s,color .2s}
 
-/* ── Header ── */
-.header{
-  background:linear-gradient(135deg,var(--red) 0%,var(--red2) 45%,var(--blue) 100%);
-  color:#fff;padding:0;position:sticky;top:0;z-index:100;
-  box-shadow:0 2px 12px rgba(0,0,0,.25)
-}
-.header-inner{
-  max-width:900px;margin:0 auto;padding:12px 16px;
-  display:flex;align-items:center;gap:12px
-}
-.logo-svg{flex-shrink:0;width:54px;height:54px}
-.header-text{flex:1;min-width:0}
-.header-text h1{font-size:13.5px;font-weight:700;line-height:1.3;letter-spacing:.2px}
-.header-text p{font-size:10px;opacity:.8;margin-top:2px;line-height:1.4}
-.header-badge{
-  flex-shrink:0;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
-  border-radius:8px;padding:6px 10px;text-align:center;display:none
-}
-@media(min-width:480px){.header-badge{display:block}}
-.header-badge .hb-num{font-size:15px;font-weight:700;color:#fff}
-.header-badge .hb-lbl{font-size:9px;color:rgba(255,255,255,.75);display:block;margin-top:1px}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#6b1111 0%,#7f1d1d 40%,#1e3a5f 100%);color:#fff;
+  position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.35)}
+.hdr-in{max-width:960px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;gap:0}
+.hdr-t{flex:1;min-width:0}
+.hdr-kn{font-size:13.5px;font-weight:700;line-height:1.3;color:#fff}
+.hdr-en{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.8);margin-top:2px}
+.hdr-addr{font-size:8.5px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.55}
+.hdr-r{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:12px}
+.hdr-st{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  border-radius:9px;padding:5px 10px;text-align:center;display:none}
+@media(min-width:440px){.hdr-st{display:block}}
+.hdr-st .sn{font-size:15px;font-weight:700;color:#fff;line-height:1}
+.hdr-st .sl{font-size:8.5px;color:rgba(255,255,255,.6);display:block;margin-top:1px}
+.dark-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.dark-btn:hover{background:rgba(255,255,255,.2)}
 
-/* ── Main ── */
-.main{max-width:900px;margin:0 auto;padding:16px}
+/* MAIN */
+.main{max-width:960px;margin:0 auto;padding:14px 12px 48px}
 
-/* ── Search Card ── */
-.search-card{
-  background:#fff;border-radius:14px;border:1px solid var(--gray-200);
-  padding:16px;margin-bottom:14px;box-shadow:var(--shadow)
-}
-.search-title{font-size:12px;font-weight:600;color:var(--gray-500);
-  text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;
-  display:flex;align-items:center;gap:6px}
-.search-row{display:flex;gap:8px;margin-bottom:10px}
-.search-row input{
-  flex:1;padding:10px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius);
-  font-size:14px;color:var(--gray-800);background:var(--gray-50);transition:border-color .15s
-}
-.search-row input:focus{outline:none;border-color:var(--red);background:#fff;
-  box-shadow:0 0 0 3px rgba(127,29,29,.1)}
-.search-row input::placeholder{color:var(--gray-400)}
-.btn-search{
-  background:var(--red);color:#fff;border:none;padding:10px 20px;border-radius:var(--radius);
-  font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s;
-  display:flex;align-items:center;gap:6px
-}
-.btn-search:hover{background:var(--red2)}
-.btn-search:active{opacity:.85}
+/* STATS — only Vehicles + Owners + Tenants */
+.stats{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px}
+.stats::-webkit-scrollbar{display:none}
+.sc{flex-shrink:0;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:8px 14px;text-align:center;min-width:80px;box-shadow:var(--sh)}
+.sc .v{font-size:18px;font-weight:700;line-height:1}
+.sc .l{font-size:9px;color:var(--text4);margin-top:2px;font-weight:500}
+.v-green{color:var(--green)}.v-amber{color:var(--amber)}.v-red{color:var(--red2)}
+
+/* SEARCH CARD */
+.scard{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  padding:14px;margin-bottom:12px;box-shadow:var(--sh)}
+.stitle{font-size:11px;font-weight:600;color:var(--text4);text-transform:uppercase;
+  letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.srow{display:flex;gap:7px;margin-bottom:10px}
+.srow input{flex:1;padding:10px 13px;border:1.5px solid var(--border2);border-radius:var(--r);
+  font-size:14px;color:var(--text);background:var(--surface2);
+  transition:border-color .15s,box-shadow .15s;font-family:inherit}
+.srow input:focus{outline:none;border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(127,29,29,.12);background:var(--surface)}
+.srow input::placeholder{color:var(--text4)}
+.btn-go{background:var(--red);color:#fff;border:none;padding:10px 18px;border-radius:var(--r);
+  font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
+  display:flex;align-items:center;gap:5px;transition:background .15s;font-family:inherit}
+.btn-go:hover{background:#6b1111}
+.btn-go:active{opacity:.88}
 
 /* Filters */
-.filter-row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.filter-lbl{font-size:11px;color:var(--gray-400);font-weight:500}
-.filter-select{
-  font-size:12px;padding:6px 10px;border:1.5px solid var(--gray-200);border-radius:8px;
-  background:#fff;color:var(--gray-700);cursor:pointer;-webkit-appearance:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239ca3af'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 8px center;padding-right:24px
-}
-.filter-select:focus{outline:none;border-color:var(--red)}
-.btn-clear{
-  font-size:11px;padding:6px 10px;border:1.5px solid var(--gray-200);border-radius:8px;
-  background:#fff;color:var(--gray-400);cursor:pointer
-}
-.btn-clear:hover{background:var(--gray-100);color:var(--gray-600)}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+@media(min-width:520px){.fgrid{grid-template-columns:repeat(4,1fr)}}
+.fsel{font-size:12px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;
+  background:var(--surface2);color:var(--text2);cursor:pointer;
+  appearance:none;-webkit-appearance:none;width:100%;font-family:inherit;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7280'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;padding-right:26px}
+.fsel:focus{outline:none;border-color:var(--red)}
+[data-theme="dark"] .fsel{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E")}
+
+.arow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.btn-clear{font-size:11.5px;padding:7px 13px;border:1.5px solid var(--border);border-radius:8px;
+  background:var(--surface2);color:var(--text3);cursor:pointer;font-weight:500;
+  font-family:inherit;transition:background .12s}
+.btn-clear:hover{background:var(--border)}
+.res-sum{font-size:12px;color:var(--text3);margin-left:auto;display:none}
+.res-sum b{color:var(--red-t);font-size:13px}
 
 /* Quick pills */
-.quick-pills{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
-.pill{
-  font-size:11px;padding:4px 10px;border-radius:20px;border:1px solid var(--gray-200);
-  background:#fff;color:var(--gray-500);cursor:pointer;transition:all .12s;font-weight:500
-}
-.pill:hover,.pill.active{background:var(--red);color:#fff;border-color:var(--red)}
+.qlabel{font-size:10px;color:var(--text4);font-weight:500;margin-bottom:5px}
+.qpills{display:flex;gap:4px;flex-wrap:wrap}
+.pill{font-size:11px;padding:4px 10px;border-radius:20px;border:1.5px solid var(--border);
+  background:var(--surface2);color:var(--text3);cursor:pointer;
+  transition:all .12s;font-weight:500;font-family:inherit}
+.pill:hover,.pill.on{background:var(--red);color:#fff;border-color:var(--red)}
+.hint{font-size:10px;color:var(--text4);margin-top:10px;display:flex;align-items:center;gap:4px}
 
-/* Search hint */
-.search-hint{font-size:10px;color:var(--gray-400);margin-top:8px;
-  display:flex;align-items:center;gap:4px}
-
-/* ── Prompt / States ── */
-.state-box{text-align:center;padding:48px 24px}
-.state-box svg{margin:0 auto 12px;opacity:.3}
-.state-box h3{font-size:14px;font-weight:600;color:var(--gray-500);margin-bottom:4px}
-.state-box p{font-size:12px;color:var(--gray-400)}
-
-/* Loader */
-.loader-wrap{display:flex;justify-content:center;align-items:center;padding:40px;gap:10px}
-.loader{
-  width:24px;height:24px;border:3px solid var(--gray-200);
-  border-top-color:var(--red);border-radius:50%;
-  animation:spin .8s linear infinite
-}
+/* LOADER */
+.ldr{display:none;justify-content:center;align-items:center;padding:44px;gap:10px}
+.spin{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--red);
+  border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.ldr-t{font-size:13px;color:var(--text4)}
 
-/* ── Results header ── */
-.results-header{
-  display:flex;justify-content:space-between;align-items:center;
-  margin-bottom:10px;display:none
-}
-.results-header.show{display:flex}
-.result-count{font-size:12px;color:var(--gray-500);font-weight:500}
-.result-count b{color:var(--red);font-size:14px}
-.sort-toggle{
-  font-size:11px;color:var(--gray-400);cursor:pointer;padding:4px 8px;
-  border:1px solid var(--gray-200);border-radius:6px;background:#fff
-}
+/* PROMPT */
+.prompt{text-align:center;padding:52px 24px;display:none}
+.prompt svg{margin:0 auto 12px;opacity:.2}
+.prompt h3{font-size:14px;font-weight:600;color:var(--text3);margin-bottom:4px}
+.prompt p{font-size:12px;color:var(--text4)}
 
-/* ── Results grid ── */
-.results-grid{display:grid;grid-template-columns:1fr;gap:10px}
-@media(min-width:600px){.results-grid{grid-template-columns:1fr 1fr}}
+/* RESULTS HEADER */
+.rh{display:none;justify-content:space-between;align-items:center;margin-bottom:10px}
+.rh.on{display:flex}
+.sort-btn{font-size:11px;color:var(--text4);padding:5px 10px;border:1px solid var(--border);
+  border-radius:6px;background:var(--surface);cursor:pointer;font-family:inherit}
 
-/* ── Resident Card ── */
-.r-card{
-  background:#fff;border-radius:14px;border:1px solid var(--gray-200);
-  padding:0;overflow:hidden;box-shadow:var(--shadow);
-  transition:box-shadow .15s,transform .15s;cursor:default
-}
-.r-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
-.r-card-header{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  padding:12px 14px 10px;border-bottom:1px solid var(--gray-100)
-}
-.r-name{font-size:15px;font-weight:700;color:var(--gray-900);line-height:1.3;
-  word-break:break-word}
-.r-sub{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
-.badge{
-  display:inline-flex;align-items:center;gap:3px;
-  font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px
-}
-.badge-owner{background:#dbeafe;color:var(--blue2)}
-.badge-tenant{background:var(--amber-bg);color:var(--amber)}
-.badge-verified{background:var(--green-bg);color:var(--green)}
-.badge-floor{background:var(--purple-bg);color:var(--purple)}
-.badge-gf{background:#fef9c3;color:#713f12;border:1px solid #fde68a}
-.r-flat-block{text-align:right;flex-shrink:0;margin-left:8px}
-.flat-chip{
-  display:inline-block;background:var(--red);color:#fff;
-  font-size:13px;font-weight:700;padding:6px 10px;border-radius:8px;
-  font-family:'SF Mono',monospace;white-space:nowrap
-}
-.flat-chip small{font-size:9px;display:block;opacity:.8;margin-top:1px;font-weight:400;font-family:inherit}
+/* GRID */
+.rgrid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:600px){.rgrid{grid-template-columns:1fr 1fr}}
 
-/* Card body */
-.r-card-body{padding:10px 14px 12px}
-.r-row{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px}
-.r-row:last-child{margin-bottom:0}
-.r-icon{flex-shrink:0;width:16px;height:16px;margin-top:1px;opacity:.5}
-.r-label{font-size:11px;color:var(--gray-400);font-weight:500;margin-bottom:1px}
-.r-value{font-size:12.5px;color:var(--gray-700);font-weight:500;line-height:1.4}
-.r-value.mono{font-family:'SF Mono',SFMono-Regular,Menlo,monospace;font-size:12px;
-  letter-spacing:.5px;color:var(--gray-800)}
-
-/* Vehicle plates */
+/* CARD */
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  overflow:hidden;box-shadow:var(--sh);transition:box-shadow .15s,transform .15s,border-color .15s}
+.rcard:hover{box-shadow:var(--sh-md);transform:translateY(-2px);border-color:var(--border2)}
+.rcard.owner{border-top:3px solid #1e40af}
+.rcard.tenant{border-top:3px solid #92400e}
+.rcard.other{border-top:3px solid var(--red)}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:12px 14px 10px;border-bottom:1px solid var(--border)}
+.rname{font-size:15px;font-weight:700;color:var(--text);line-height:1.3;word-break:break-word}
+.rbadges{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.badge{display:inline-flex;align-items:center;gap:2px;
+  font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.b-owner{background:var(--blue-bg);color:var(--blue)}
+.b-tenant{background:var(--amber-bg);color:var(--amber)}
+.b-ok{background:var(--green-bg);color:var(--green)}
+.b-floor{background:var(--purple-bg);color:var(--purple)}
+.b-gf{background:var(--teal-bg);color:var(--teal)}
+.fc{text-align:center;flex-shrink:0;margin-left:8px}
+.fc-in{display:inline-block;background:var(--red);color:#fff;
+  font-size:13px;font-weight:700;padding:7px 11px;border-radius:9px;
+  font-family:"SF Mono",SFMono-Regular,Menlo,monospace;
+  white-space:nowrap;min-width:62px;text-align:center}
+.fc-in small{font-size:9px;display:block;opacity:.8;margin-top:1px;font-weight:400;font-family:inherit}
+.cb{padding:10px 14px 12px}
+.crow{display:flex;align-items:flex-start;gap:8px;margin-bottom:7px}
+.crow:last-child{margin-bottom:0}
+.cicon{flex-shrink:0;width:15px;height:15px;margin-top:1px;color:var(--text4)}
+.clabel{font-size:10.5px;color:var(--text4);font-weight:500;margin-bottom:1px}
+.cval{font-size:12.5px;color:var(--text2);font-weight:500;line-height:1.4}
+.cval.mono{font-family:"SF Mono",SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.4px}
+.cval.muted{color:var(--text4);font-style:italic;font-size:12px}
 .plates{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
-.plate{
-  font-family:'SF Mono',monospace;font-size:11px;font-weight:700;
-  padding:3px 8px;border-radius:5px;border:1.5px solid var(--gray-300);
-  background:#fff;color:var(--gray-800);letter-spacing:.5px;text-transform:uppercase
-}
+.plate{font-family:"SF Mono",monospace;font-size:11px;font-weight:700;
+  padding:3px 8px;border-radius:5px;border:1.5px solid var(--border2);
+  background:var(--surface2);color:var(--text);letter-spacing:.5px;text-transform:uppercase}
+.cf{padding:6px 14px;background:var(--surface2);border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center}
+.cts{font-size:9.5px;color:var(--text4)}
 
-/* Card footer */
-.r-card-footer{
-  padding:6px 14px;background:var(--gray-50);border-top:1px solid var(--gray-100);
-  display:flex;justify-content:space-between;align-items:center
-}
-.r-ts{font-size:9.5px;color:var(--gray-400)}
+/* NO RESULT */
+.nores{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  padding:44px 24px;text-align:center;grid-column:1/-1}
+.nores svg{margin:0 auto 10px;opacity:.25}
+.nores p{font-size:13px;color:var(--text3);margin-top:6px}
+.nores .sub{font-size:11px;color:var(--text4);margin-top:4px}
 
-/* No result */
-.no-result{
-  background:#fff;border:1px solid var(--gray-200);border-radius:14px;
-  padding:40px 24px;text-align:center;grid-column:1/-1
-}
-.no-result p{font-size:13px;color:var(--gray-500);margin-top:8px}
-.no-result p.sub{font-size:11px;color:var(--gray-400);margin-top:4px}
-
-/* Stats bar */
-.stats-bar{
-  display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
-  margin-bottom:14px;padding-bottom:2px
-}
-.stats-bar::-webkit-scrollbar{display:none}
-.stat-chip{
-  flex-shrink:0;background:#fff;border:1px solid var(--gray-200);border-radius:10px;
-  padding:8px 12px;text-align:center;min-width:80px;box-shadow:var(--shadow)
-}
-.stat-chip .sv{font-size:18px;font-weight:700;line-height:1}
-.stat-chip .sl{font-size:9px;color:var(--gray-400);margin-top:2px;font-weight:500}
-.stat-chip.s-red .sv{color:var(--red)}
-.stat-chip.s-blue .sv{color:var(--blue2)}
-.stat-chip.s-green .sv{color:var(--green)}
-.stat-chip.s-amber .sv{color:var(--amber)}
-
-/* Footer */
-footer{text-align:center;padding:20px 16px 32px;
-  font-size:10px;color:var(--gray-400);max-width:900px;margin:0 auto}
+footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4);
+  max-width:960px;margin:0 auto;line-height:1.7;border-top:1px solid var(--border);margin-top:20px}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-inner">
-    <!-- Inline SVG logo -->
-    <svg class="logo-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="30" cy="30" r="29" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.3)" stroke-width="1.5"/>
-      <!-- Roof -->
-      <polygon points="30,8 8,28 52,28" fill="#fff"/>
-      <polygon points="30,11 11,28 49,28" fill="rgba(255,255,255,.25)"/>
-      <!-- Main building -->
-      <rect x="13" y="28" width="34" height="22" rx="1" fill="rgba(255,255,255,.92)"/>
-      <!-- Chimney -->
-      <rect x="38" y="16" width="4" height="10" fill="rgba(255,255,255,.7)"/>
-      <!-- Door -->
-      <rect x="24" y="36" width="12" height="14" rx="1" fill="#7f1d1d"/>
-      <!-- Door knob -->
-      <circle cx="35" cy="43" r="1" fill="rgba(255,255,255,.6)"/>
-      <!-- Windows row 1 -->
-      <rect x="15" y="30" width="7" height="5" rx=".5" fill="#bfdbfe"/>
-      <rect x="38" y="30" width="7" height="5" rx=".5" fill="#bfdbfe"/>
-      <!-- Windows row 2 (multi-floor) -->
-      <rect x="15" y="37" width="7" height="4" rx=".5" fill="#bfdbfe" opacity=".7"/>
-      <rect x="38" y="37" width="7" height="4" rx=".5" fill="#bfdbfe" opacity=".7"/>
-      <!-- Floor divider lines -->
-      <line x1="13" y1="36" x2="47" y2="36" stroke="rgba(127,29,29,.3)" stroke-width=".8"/>
-      <line x1="30" y1="28" x2="30" y2="50" stroke="rgba(127,29,29,.25)" stroke-width=".8"/>
-      <!-- MBDAAOWA text -->
-      <text x="30" y="56" text-anchor="middle" font-size="5" font-weight="700"
-        fill="rgba(255,255,255,.7)" font-family="Arial,sans-serif" letter-spacing=".5">MBDAAOWA</text>
-    </svg>
-
-    <div class="header-text">
-      <h1>MALAGALA BDA APARTMENTS OWNERS WELFARE ASSOCIATION ®</h1>
-      <p>Panchashila Nagar · Nagarabhavi · Bengaluru – 560 072</p>
-      <p style="margin-top:3px;font-size:9.5px;opacity:.65">
-        Reg: SOR/RJR/S-91/2016-17 &nbsp;|&nbsp;
-        ನಿವಾಸಿ ದೃಢೀಕರಣ ಪೋರ್ಟಲ್ · Resident Verification Portal
-      </p>
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="hdr-t">
+      <div class="hdr-kn">ಮಾಳಗಳ ಬಿ.ಡಿ.ಎ. ಅಪಾರ್ಟ್‌ಮೆಂಟ್ ಮಾಲೀಕರ ಕ್ಷೇಮಾಭಿವೃದ್ಧಿ ಸಂಘ (ರಿ.)</div>
+      <div class="hdr-en">MALAGALA BDA APARTMENTS OWNERS WELFARE ASSOCIATION ®</div>
+      <div class="hdr-addr">
+        Reg. No: SOR/RJR/S-91/2016-17 &nbsp;·&nbsp; Survey No: 53 &amp; 36, Malagala, Panchasheela Nagar<br>
+        Near Moodalapalya Circle, Nagarabhavi Post, Bangalore – 560 072
+      </div>
     </div>
-
-    <div class="header-badge">
-      <div class="hb-num">288</div>
-      <span class="hb-lbl">Flats</span>
-      <div class="hb-num" style="margin-top:4px">B1–B18</div>
-      <span class="hb-lbl">Blocks</span>
+    <div class="hdr-r">
+      <div class="hdr-st" id="hdr-st">
+        <div class="sn" id="hst-n">—</div>
+        <span class="sl">Responses</span>
+      </div>
+      <button class="dark-btn" id="dark-btn" onclick="toggleDark()" aria-label="Toggle dark mode">🌙</button>
     </div>
   </div>
 </header>
 
-<!-- MAIN -->
 <div class="main">
 
-  <!-- Stats bar (hidden until data loaded) -->
-  <div class="stats-bar" id="stats-bar" style="display:none">
-    <div class="stat-chip s-blue">
-      <div class="sv" id="st-total">—</div>
-      <div class="sl">Total Responses</div>
-    </div>
-    <div class="stat-chip s-green">
-      <div class="sv" id="st-owners">—</div>
-      <div class="sl">Owners</div>
-    </div>
-    <div class="stat-chip s-amber">
-      <div class="sv" id="st-tenants">—</div>
-      <div class="sl">Tenants</div>
-    </div>
-    <div class="stat-chip s-red">
-      <div class="sv" id="st-vehicles">—</div>
-      <div class="sl">With Vehicle</div>
-    </div>
-    <div class="stat-chip" style="color:var(--purple)">
-      <div class="sv" style="color:var(--purple)" id="st-blocks">—</div>
-      <div class="sl">Blocks Active</div>
-    </div>
-  </div>
+  <!-- Stats: Owners | Tenants | Vehicles only -->
+  <!-- Statistics Removed -->
 
-  <!-- Search Card -->
-  <div class="search-card">
-    <div class="search-title">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+  <div class="scard">
+    <div class="stitle">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" viewBox="0 0 24 24">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
-      Search Resident / ನಿವಾಸಿ ಹುಡುಕಿ
+      ನಿವಾಸಿ ಹುಡುಕಾಟ &nbsp;/&nbsp; Resident Search
     </div>
 
-    <!-- Primary search -->
-    <div class="search-row">
-      <input type="text" id="q" autocomplete="off" autocorrect="off"
-        placeholder="Name, Block (B7), Flat (204), Phone, or Vehicle number…">
-      <button class="btn-search" onclick="doSearch()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-          <circle cx="6" cy="6" r="5"/><path d="m11 11-2.8-2.8"/>
+    <div class="srow">
+      <input type="search" id="q" inputmode="search"
+        placeholder="ಹೆಸರು · ಮೊಬೈಲ್ · ವಾಹನ ನಂಬರ್ · Block · Flat…"
+        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="btn-go" onclick="doSearch()">
+        <svg width="13" height="13" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
         Search
       </button>
     </div>
 
-    <!-- Filters -->
-    <div class="filter-row">
-      <span class="filter-lbl">Filter:</span>
-      <select class="filter-select" id="f-block" onchange="doSearch()">
-        <option value="">All Blocks</option>
+    <div class="fgrid">
+      <select class="fsel" id="f-block" onchange="doSearch()">
+        <option value="">All Blocks (B1–B18)</option>
       </select>
-      <select class="filter-select" id="f-type" onchange="doSearch()">
-        <option value="">All Types</option>
-        <option value="Owner">🏠 Owner</option>
-        <option value="Tenant">🏘 Tenant</option>
+      <select class="fsel" id="f-flat" onchange="doSearch()">
+        <option value="">All Flats</option>
+        <optgroup label="Ground Floor">
+          <option value="001">001 — Ground Floor</option>
+          <option value="002">002 — Ground Floor</option>
+          <option value="003">003 — Ground Floor</option>
+          <option value="004">004 — Ground Floor</option>
+        </optgroup>
+        <optgroup label="1st Floor">
+          <option value="101">101 — 1st Floor</option>
+          <option value="102">102 — 1st Floor</option>
+          <option value="103">103 — 1st Floor</option>
+          <option value="104">104 — 1st Floor</option>
+        </optgroup>
+        <optgroup label="2nd Floor">
+          <option value="201">201 — 2nd Floor</option>
+          <option value="202">202 — 2nd Floor</option>
+          <option value="203">203 — 2nd Floor</option>
+          <option value="204">204 — 2nd Floor</option>
+        </optgroup>
+        <optgroup label="3rd Floor">
+          <option value="301">301 — 3rd Floor</option>
+          <option value="302">302 — 3rd Floor</option>
+          <option value="303">303 — 3rd Floor</option>
+          <option value="304">304 — 3rd Floor</option>
+        </optgroup>
       </select>
-      <select class="filter-select" id="f-vehicle" onchange="doSearch()">
+      <select class="fsel" id="f-type" onchange="doSearch()">
+        <option value="">Owner / Tenant</option>
+        <option value="owner">🏠 Owner</option>
+        <option value="tenant">🏘 Tenant</option>
+      </select>
+      <select class="fsel" id="f-veh" onchange="doSearch()">
         <option value="">Any Vehicle</option>
         <option value="has">Has Vehicle</option>
         <option value="none">No Vehicle</option>
-        <option value="2W">2-Wheeler</option>
-        <option value="4W">4-Wheeler</option>
+        <option value="2w">🛵 2-Wheeler</option>
+        <option value="4w">🚗 4-Wheeler</option>
         <option value="both">Both Types</option>
       </select>
-      <button class="btn-clear" onclick="clearAll()">✕ Clear</button>
     </div>
 
-    <!-- Quick-search pills -->
-    <div class="quick-pills" id="quick-pills"></div>
+    <div class="arow">
+      <button class="btn-clear" onclick="clearAll()">✕ &nbsp;Clear Search</button>
+      <div class="res-sum" id="res-sum"></div>
+    </div>
 
-    <p class="search-hint">
-      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+    <div class="qlabel">Quick block filter:</div>
+    <div class="qpills" id="qpills"></div>
+
+    <p class="hint">
+      <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
       </svg>
-      Type and press Enter or click Search. Results appear only after a search.
+      Press Enter or tap Search · Results shown only after searching
     </p>
   </div>
 
   <!-- Loader -->
-  <div class="loader-wrap" id="loader" style="display:none">
-    <div class="loader"></div>
-    <span id="loader-text" style="font-size:13px;color:var(--gray-400)">Fetching live data…</span>
+  <div class="ldr" id="loader">
+    <div class="spin"></div>
+    <span class="ldr-t" id="ldr-t">Loading resident directory…</span>
   </div>
 
-  <!-- Prompt (before first search) -->
-  <div class="state-box" id="prompt">
-    <svg width="56" height="56" fill="none" stroke="#d1d5db" stroke-width="1.5" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round"
-        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+  <!-- Prompt -->
+  <div class="prompt" id="prompt">
+    <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/>
     </svg>
-    <h3>Search the Resident Directory</h3>
-    <p>Enter a name, flat number, block, or vehicle number above</p>
-    <p style="font-size:11px;color:var(--gray-400);margin-top:4px">ಮೇಲೆ ಹುಡುಕಾಟ ಮಾಡಿ</p>
+    <h3>ಹುಡುಕಾಟ ಮಾಡಿ / Search Residents</h3>
+    <p>ಹೆಸರು, ಬ್ಲಾಕ್, ಫ್ಲಾಟ್, ಮೊಬೈಲ್ ಅಥವಾ ವಾಹನ ನಂಬರ್ ನಮೂದಿಸಿ</p>
+    <p style="margin-top:4px">Enter name, block, flat, mobile or vehicle number above</p>
   </div>
 
   <!-- Results header -->
-  <div class="results-header" id="rh">
-    <div class="result-count" id="rc"></div>
-    <button class="sort-toggle" onclick="toggleSort()">⇅ Sort: <span id="sort-lbl">Name</span></button>
+  <div class="rh" id="rh">
+    <span id="rc" style="font-size:12px;color:var(--text3)"></span>
+    <button class="sort-btn" onclick="toggleSort()">⇅ Sort: <span id="sort-lbl">Name A–Z</span></button>
   </div>
 
-  <!-- Results grid -->
-  <div class="results-grid" id="grid"></div>
-
-</div><!-- /main -->
+  <div class="rgrid" id="grid"></div>
+</div>
 
 <footer>
-  MBDAAOWA &copy; 2026 &nbsp;·&nbsp; Read-Only Resident Verification Directory &nbsp;·&nbsp;
-  Data sourced live from Google Sheets &nbsp;·&nbsp;
-  <span style="color:var(--red);font-weight:500">For queries contact the Association Secretary</span>
+  <strong style="color:var(--red-t)">MBDAAOWA</strong> &nbsp;·&nbsp;
+  ಮಾಳಗಳ ಬಿ.ಡಿ.ಎ. ಅಪಾರ್ಟ್‌ಮೆಂಟ್ ಮಾಲೀಕರ ಕ್ಷೇಮಾಭಿವೃದ್ಧಿ ಸಂಘ (ರಿ.) &nbsp;·&nbsp; Reg. SOR/RJR/S-91/2016-17<br>
+  Survey No: 53 &amp; 36, Malagala, Panchasheela Nagar, Near Moodalapalya Circle, Nagarabhavi Post, Bangalore – 560 072<br>
+  <span style="color:var(--text4)">Read-only resident verification portal · Live data from Google Sheets</span>
 </footer>
 
 <script>
-/* ═══════════════════════════════════════════════════
-   CONFIG
-═══════════════════════════════════════════════════ */
+/* ─── CONFIG ─── */
 const SHEET_ID = '1QQ6lkJAO2oZprVqUWPyV5S4ouROkoxAJuHg_p287a14';
-const SHEET_NM = encodeURIComponent('Form Responses 1');
-const GVZ_URL  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NM}`;
+const SHEET    = encodeURIComponent('Form Responses 1');
+const GVZ      = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET}`;
 
-/* ═══════════════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════════════ */
-let all  = [];        // all records
-let cur  = [];        // current filtered set
-let sortMode = 'name'; // 'name' | 'block' | 'ts'
-let dataLoaded = false;
+/* ─── STATE ─── */
+let ALL = [], CUR = [], SORT = 'name', READY = false;
 
-const GF = ['1','2','3','4','001','002','003','004'];
+/* ─── DARK MODE ─── */
+function toggleDark() {
+  const d = document.documentElement;
+  const now = d.dataset.theme === 'dark';
+  d.dataset.theme = now ? 'light' : 'dark';
+  document.getElementById('dark-btn').textContent = now ? '🌙' : '☀️';
+  try { localStorage.setItem('mbda-theme', d.dataset.theme); } catch(e){}
+}
+(function(){
+  try {
+    const t = localStorage.getItem('mbda-theme');
+    if (t) {
+      document.documentElement.dataset.theme = t;
+      if (t === 'dark') {
+        window.addEventListener('DOMContentLoaded', () => {
+          const b = document.getElementById('dark-btn');
+          if (b) b.textContent = '☀️';
+        });
+      }
+    }
+  } catch(e){}
+})();
 
-/* ═══════════════════════════════════════════════════
-   BOOT
-═══════════════════════════════════════════════════ */
+/* ─── BOOT ─── */
 window.addEventListener('DOMContentLoaded', () => {
-  setLoader(true, 'Loading resident directory…');
-  fetch(GVZ_URL)
-    .then(r => r.text())
-    .then(t => {
-      let json;
-      // Google wraps the json — strip the wrapper
-      try { json = JSON.parse(t.substring(47).slice(0,-2)); }
-      catch { json = JSON.parse(t.replace(/^[^{]+/,'').replace(/[^}]+$/,'')); }
+  showLoader(true, 'Loading resident directory…');
+  fetch(GVZ)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(txt => {
+      const json = JSON.parse(txt.replace(/^[^{]*/, '').replace(/[^}]*$/, ''));
       ingest(json);
     })
-    .catch(() => {
-      setLoader(true, '⚠ Could not load data. Check sheet is publicly readable.', true);
+    .catch(err => {
+      showLoader(true, '⚠ Could not load data. Ensure Google Sheet is shared as Viewer.', true);
+      console.error(err);
     });
 
   document.getElementById('q').addEventListener('keydown', e => {
@@ -428,360 +385,377 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-/* ═══════════════════════════════════════════════════
-   INGEST
-═══════════════════════════════════════════════════ */
+/* ─── INGEST ──────────────────────────────────────────────────────────────────
+   Form Responses 1 column map:
+     c[0] = Timestamp
+     c[1] = Email
+     c[2] = Score/WA ref
+     c[3] = Full Name
+     c[4] = WhatsApp / Mobile
+     c[5] = Block  (e.g. "B7")
+     c[6] = Flat   (CRITICAL: gviz returns 1,2,3,4 as JS Number not String)
+     c[7] = Resident Type
+     c[8] = Vehicle Number
+     c[9] = Vehicle Type (last "type" column)
+──────────────────────────────────────────────────────────────────────────── */
 function ingest(json) {
   const rows = json.table.rows || [];
-  all = rows.map(row => {
-    const g   = i => row.c[i] ? (row.c[i].f || row.c[i].v || '') : '';
-    const gv  = i => row.c[i] ? (row.c[i].v  || '') : '';
-    const flatRaw = gv(6).toString().trim();
-    const flatN   = normFlat(flatRaw);
-    const vRaw    = gv(8).toString().trim();
-    const vtRaw   = gv(9).toString().trim();
-    return {
-      ts:      g(0).toString(),
-      email:   gv(1).toString().trim(),
-      rgroup:  gv(2).toString().trim(),
-      name:    gv(3).toString().trim(),
-      phone:   gv(4).toString().trim(),
-      block:   gv(5).toString().trim().toUpperCase(),
-      flat:    flatN,
-      resType: gv(7).toString().trim(),
-      vehicle: vRaw,
-      vType:   vtRaw,
-      plates:  splitPlates(vRaw),
-      vcat:    vcategory(vtRaw),
+
+  ALL = rows.map(row => {
+    // Safe getter — always returns a plain string
+    const g = i => {
+      if (!row.c || row.c[i] == null) return '';
+      const cell = row.c[i];
+      if (cell == null) return '';
+      // Use formatted value for timestamp (c[0]); raw value everywhere else
+      const val = (i === 0 && cell.f != null) ? cell.f : cell.v;
+      if (val == null) return '';
+      return String(val).trim();
     };
-  }).filter(r => r.name);
 
-  // Sort alphabetically by default
-  all.sort((a,b) => a.name.localeCompare(b.name));
+    const block   = g(5).toUpperCase().replace(/\s/g, '');
+    const resType = g(7);
 
-  buildBlockPills();
-  buildQuickPills();
-  updateStats();
-  setLoader(false);
-  dataLoaded = true;
+    // ── FLAT NUMBER FIX ──────────────────────────────────────────────────
+    // gviz returns ground-floor flats (1,2,3,4) as JS numbers.
+    // We must convert them to "001"–"004".
+    // All other flats (101-304) are already strings like "203".
+    const rawFlatVal = (row.c && row.c[6] != null) ? row.c[6].v : null;
+    const flatN = normFlat(rawFlatVal);
+    // ─────────────────────────────────────────────────────────────────────
+
+    const vRaw  = g(8);
+
+    return {
+      ts:      g(0),
+      name:    g(3),
+      phone:   g(4),
+      block,
+      flat:    flatN,
+      resType,
+      rtL:     resType.toLowerCase(),
+      vehicle: vRaw,
+      vType:   g(9),
+      plates:  splitPlates(vRaw),
+      blob:    '',    // filled below
+    };
+  }).filter(r => r.name.length > 0);
+
+  // Pre-build search blob (case-insensitive match target)
+  ALL.forEach(r => {
+    r.blob = [r.name, r.phone, r.block, r.flat,
+              r.vehicle, r.vType, r.resType].join(' ').toLowerCase();
+  });
+
+  ALL.sort((a, b) => a.name.localeCompare(b.name));
+
+  buildBlockDD();
+  buildPills();
+  renderStats();
+  showLoader(false);
+  showPrompt(true);
+  READY = true;
 }
 
-/* ═══════════════════════════════════════════════════
-   BUILD UI ELEMENTS
-═══════════════════════════════════════════════════ */
-function buildBlockPills() {
-  const blocks = [...new Set(all.map(r => r.block).filter(Boolean))].sort((a,b) => {
-    return (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0);
-  });
+/* ─── NORMALISE FLAT ─────────────────────────────────────────────────────
+   Accepts both Number and String.
+   1  → "001"   2  → "002"   3  → "003"   4  → "004"
+   101 → "101"  203 → "203"  304 → "304"  etc.
+────────────────────────────────────────────────────────────────────────── */
+function normFlat(raw) {
+  if (raw == null || raw === '') return '';
+  // raw may be JS Number (e.g. 1) or String (e.g. "203" or "Flat 3")
+  const n = typeof raw === 'number' ? raw : parseInt(String(raw).replace(/\D/g, ''), 10);
+  if (isNaN(n)) return String(raw).trim();
+  // Ground floor: 1–4 → "001"–"004"
+  if (n >= 1 && n <= 4)     return String(n).padStart(3, '0');
+  // Standard upper floors
+  if (n >= 100 && n <= 304) return String(n).padStart(3, '0');
+  return String(n).padStart(3, '0');
+}
+
+/* ─── FLOOR LABEL ─── */
+function floorLabel(flat) {
+  const n = parseInt(flat, 10);
+  if (isNaN(n))              return '';
+  if (n >= 1   && n <= 4)   return 'Ground Floor';
+  if (n >= 101 && n <= 104) return '1st Floor';
+  if (n >= 201 && n <= 204) return '2nd Floor';
+  if (n >= 301 && n <= 304) return '3rd Floor';
+  return '';
+}
+
+/* ─── SPLIT VEHICLE PLATES ─── */
+function splitPlates(v) {
+  if (!v) return [];
+  const s = v.toString().trim();
+  if (!s || /^(n\/a|na|nil|none|-+)$/i.test(s)) return [];
+  return s.split(/[,;|\/\n\\]+/)
+    .map(p => p.replace(/\s+/g, ' ').trim().toUpperCase())
+    .filter(p => p.length > 2 && !/^(N\/A|NA|NIL|NONE|NO)$/i.test(p));
+}
+
+/* ─── UNIQUE SORTED BLOCKS ─── */
+function uniqueBlocks() {
+  return [...new Set(ALL.map(r => r.block).filter(Boolean))]
+    .sort((a, b) => (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0));
+}
+
+/* ─── BUILD UI ─── */
+function buildBlockDD() {
   const sel = document.getElementById('f-block');
-  blocks.forEach(b => {
+  uniqueBlocks().forEach(b => {
     const o = document.createElement('option');
     o.value = b; o.textContent = b; sel.appendChild(o);
   });
 }
 
-function buildQuickPills() {
-  const container = document.getElementById('quick-pills');
-  const BLOCKS = [...new Set(all.map(r=>r.block).filter(Boolean))].sort((a,b)=>{
-    return (parseInt(a.replace(/\D/g,''))||0)-(parseInt(b.replace(/\D/g,''))||0);
-  });
-  container.innerHTML = '<span style="font-size:10px;color:var(--gray-400);align-self:center;margin-right:2px">Quick:</span>';
-  BLOCKS.slice(0,18).forEach(b => {
-    const p = document.createElement('span');
-    p.className = 'pill'; p.textContent = b;
+function buildPills() {
+  const c = document.getElementById('qpills');
+  c.innerHTML = '';
+  uniqueBlocks().forEach(b => {
+    const p = document.createElement('button');
+    p.className = 'pill'; p.textContent = b; p.type = 'button';
     p.onclick = () => {
       document.getElementById('f-block').value = b;
-      document.getElementById('q').value = '';
+      document.getElementById('q').value       = '';
+      document.getElementById('f-flat').value  = '';
+      document.getElementById('f-type').value  = '';
+      document.getElementById('f-veh').value   = '';
+      document.querySelectorAll('.pill').forEach(x => x.classList.remove('on'));
+      p.classList.add('on');
       doSearch();
-      document.querySelectorAll('.pill').forEach(x=>x.classList.remove('active'));
-      p.classList.add('active');
     };
-    container.appendChild(p);
+    c.appendChild(p);
   });
 }
 
-function updateStats() {
-  const src = all;
-  document.getElementById('st-total').textContent   = src.length;
-  document.getElementById('st-owners').textContent   = src.filter(r=>/owner/i.test(r.resType)).length;
-  document.getElementById('st-tenants').textContent  = src.filter(r=>/tenant/i.test(r.resType)).length;
-  document.getElementById('st-vehicles').textContent = src.filter(r=>r.plates.length>0).length;
-  document.getElementById('st-blocks').textContent   = new Set(src.map(r=>r.block)).size;
-  document.getElementById('stats-bar').style.display = 'flex';
+function renderStats() {
+  document.getElementById("stats")?.style && (document.getElementById("stats").style.display="none");
+  document.getElementById('hst-n').textContent=ALL.length;
+  document.getElementById('hdr-st').style.display='block';
+  let latest=ALL.map(r=>r.ts).sort().reverse()[0]||'--';
+  document.getElementById('hdr-st').innerHTML=`<div style="font-size:11px;font-weight:600">Last Form Submitted On</div><div class="sn" style="font-size:12px">${latest}</div>`;
 }
 
-/* ═══════════════════════════════════════════════════
-   SEARCH
-═══════════════════════════════════════════════════ */
+/* ─── SEARCH ─── */
 function doSearch() {
-  if (!dataLoaded) return;
-  const q    = document.getElementById('q').value.trim().toLowerCase();
-  const blk  = document.getElementById('f-block').value;
-  const type = document.getElementById('f-type').value;
-  const vf   = document.getElementById('f-vehicle').value;
+  if (!READY) return;
+  const q   = document.getElementById('q').value.trim().toLowerCase();
+  const blk = document.getElementById('f-block').value;
+  const flt = document.getElementById('f-flat').value;
+  const typ = document.getElementById('f-type').value.toLowerCase();
+  const vf  = document.getElementById('f-veh').value;
 
-  // Must have at least one criterion
-  if (!q && !blk && !type && !vf) {
+  if (!q && !blk && !flt && !typ && !vf) {
     showPrompt(true);
-    document.getElementById('rh').classList.remove('show');
+    document.getElementById('rh').classList.remove('on');
     document.getElementById('grid').innerHTML = '';
+    document.getElementById('res-sum').style.display = 'none';
     return;
   }
 
   showPrompt(false);
-  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
 
-  cur = all.filter(r => {
-    // text query
-    const matchQ = !q || [
-      r.name, r.block, r.flat, r.phone,
-      r.vehicle, r.vType, r.resType
-    ].some(v => v.toLowerCase().includes(q));
-
-    // block filter
-    const matchB = !blk || r.block === blk;
-
-    // resident type
-    const matchT = !type || r.resType.toLowerCase().includes(type.toLowerCase());
-
-    // vehicle filter
-    let matchV = true;
-    if (vf === 'has')  matchV = r.plates.length > 0;
-    if (vf === 'none') matchV = r.plates.length === 0;
-    if (vf === '2W')   matchV = /2[\s-]?wheel/i.test(r.vType);
-    if (vf === '4W')   matchV = /4[\s-]?wheel/i.test(r.vType);
-    if (vf === 'both') matchV = /2[\s-]?wheel/i.test(r.vType) && /4[\s-]?wheel/i.test(r.vType);
-
-    return matchQ && matchB && matchT && matchV;
+  CUR = ALL.filter(r => {
+    if (q && !r.blob.includes(q))               return false;
+    if (blk && r.block !== blk)                 return false;
+    if (flt && r.flat !== flt)                  return false;
+    if (typ && !r.rtL.includes(typ))            return false;
+    if (vf === 'has'  && !r.plates.length)      return false;
+    if (vf === 'none' &&  r.plates.length)      return false;
+    if (vf === '2w'   && !/2[\s-]?wheel/i.test(r.vType)) return false;
+    if (vf === '4w'   && !/4[\s-]?wheel/i.test(r.vType)) return false;
+    if (vf === 'both' &&
+       !(/2[\s-]?wheel/i.test(r.vType) && /4[\s-]?wheel/i.test(r.vType))) return false;
+    return true;
   });
 
-  applySortAndRender();
+  applySortRender();
 }
 
 function clearAll() {
-  document.getElementById('q').value = '';
+  document.getElementById('q').value       = '';
   document.getElementById('f-block').value = '';
+  document.getElementById('f-flat').value  = '';
   document.getElementById('f-type').value  = '';
-  document.getElementById('f-vehicle').value = '';
-  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+  document.getElementById('f-veh').value   = '';
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
   showPrompt(true);
-  document.getElementById('rh').classList.remove('show');
+  document.getElementById('rh').classList.remove('on');
   document.getElementById('grid').innerHTML = '';
+  document.getElementById('res-sum').style.display = 'none';
+  document.getElementById('q').focus();
 }
 
 function toggleSort() {
-  const modes = ['name','block','ts'];
-  sortMode = modes[(modes.indexOf(sortMode)+1) % modes.length];
+  const m = ['name','block','ts'];
+  SORT = m[(m.indexOf(SORT)+1) % m.length];
   document.getElementById('sort-lbl').textContent =
-    sortMode === 'name' ? 'Name' : sortMode === 'block' ? 'Block' : 'Date';
-  applySortAndRender();
+    SORT==='name' ? 'Name A–Z' : SORT==='block' ? 'Block / Flat' : 'Date';
+  applySortRender();
 }
 
-function applySortAndRender() {
-  if (sortMode === 'name')  cur.sort((a,b) => a.name.localeCompare(b.name));
-  if (sortMode === 'block') cur.sort((a,b) => {
-    const nb = n => parseInt(b.replace(/\D/g,''))||0;
-    return (parseInt(a.block.replace(/\D/g,''))||0) - (parseInt(b.block.replace(/\D/g,''))||0)
-      || a.flat.localeCompare(b.flat);
-  });
-  if (sortMode === 'ts')    cur.sort((a,b) => b.ts.localeCompare(a.ts));
-  renderResults();
+function applySortRender() {
+  if (SORT === 'name')
+    CUR.sort((a,b) => a.name.localeCompare(b.name));
+  else if (SORT === 'block')
+    CUR.sort((a,b) => {
+      const nb = x => parseInt(x.replace(/\D/g,''))||0;
+      return nb(a.block)-nb(b.block) || a.flat.localeCompare(b.flat);
+    });
+  else
+    CUR.sort((a,b) => b.ts.localeCompare(a.ts));
+  renderGrid();
 }
 
-/* ═══════════════════════════════════════════════════
-   RENDER
-═══════════════════════════════════════════════════ */
-function renderResults() {
+/* ─── RENDER ─── */
+function renderGrid() {
   const grid = document.getElementById('grid');
   const rh   = document.getElementById('rh');
   const rc   = document.getElementById('rc');
+  const rs   = document.getElementById('res-sum');
 
   grid.innerHTML = '';
-  rh.classList.add('show');
+  rh.classList.add('on');
 
-  const n = cur.length;
-  rc.innerHTML = `<b>${n}</b> record${n!==1?'s':''} found`;
+  const n = CUR.length;
+  rc.textContent = '';
+  rs.innerHTML = `<b>${n}</b> record${n!==1?'s':''} found`;
+  rs.style.display = 'block';
+
   if (n === 0) {
     grid.innerHTML = `
-      <div class="no-result">
-        <svg width="40" height="40" fill="none" stroke="#d1d5db" stroke-width="1.5" viewBox="0 0 24 24" style="margin:0 auto">
-          <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/>
+      <div class="nores">
+        <svg width="40" height="40" fill="none" stroke="currentColor"
+             stroke-width="1.2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/>
+          <path stroke-linecap="round" d="m21 21-4.35-4.35"/>
         </svg>
-        <p>No records match your search</p>
-        <p class="sub">ಯಾವುದೇ ಹೊಂದಾಣಿಕೆ ಕಂಡುಬಂದಿಲ್ಲ — Try a different name, block, or flat number</p>
+        <p>ಯಾವುದೇ ದಾಖಲೆ ಕಂಡುಬಂದಿಲ್ಲ / No records found</p>
+        <p class="sub">Try a different name, block, flat number, or vehicle number</p>
       </div>`;
     return;
   }
 
-  cur.forEach(r => grid.appendChild(makeCard(r)));
+  CUR.slice(0, 100).forEach(r => grid.appendChild(makeCard(r)));
+
+  if (n > 100) {
+    const note = document.createElement('p');
+    note.style.cssText = 'text-align:center;font-size:12px;color:var(--text4);grid-column:1/-1;padding:10px';
+    note.textContent = `Showing 100 of ${n} results — refine your search for more specific results.`;
+    grid.appendChild(note);
+  }
 }
 
+/* ─── MAKE CARD ─── */
 function makeCard(r) {
-  const div   = document.createElement('div');
-  div.className = 'r-card';
+  const div = document.createElement('div');
+  const isOwner  = /owner/i.test(r.rtL);
+  const isTenant = /tenant/i.test(r.rtL);
+  div.className = 'rcard ' + (isOwner ? 'owner' : isTenant ? 'tenant' : 'other');
 
-  const isOwner  = /owner/i.test(r.resType);
-  const isTenant = /tenant/i.test(r.resType);
-  const isGF     = GF.includes(r.flat);
-  const floor    = floorLabel(r.flat);
-  const hasVeh   = r.plates.length > 0;
+  const isGF   = ['001','002','003','004'].includes(r.flat);
+  const floor  = floorLabel(r.flat);
+  const hasVeh = r.plates.length > 0;
 
-  /* ── flat display ── */
-  const flatDisplay = r.flat || '—';
-  const blockDisplay = r.block || '—';
-
-  /* ── type badge ── */
   const typeBadge = r.resType
-    ? `<span class="badge ${isOwner?'badge-owner':isTenant?'badge-tenant':'badge-verified'}">
-         ${isOwner?'🏠':'🏘'} ${esc(r.resType)}
-       </span>` : '';
-
-  /* ── floor badge ── */
+    ? `<span class="badge ${isOwner?'b-owner':isTenant?'b-tenant':'b-ok'}">${isOwner?'🏠':'🏘'} ${esc(r.resType)}</span>`
+    : '';
   const floorBadge = floor
-    ? `<span class="badge ${isGF?'badge-gf':'badge-floor'}">${floor}</span>` : '';
+    ? `<span class="badge ${isGF?'b-gf':'b-floor'}">${floor}</span>` : '';
 
-  /* ── vehicle section ── */
-  let vHTML = '';
-  if (hasVeh) {
-    const platePills = r.plates.map(p=>`<span class="plate">${esc(p)}</span>`).join('');
-    const vtLabel = r.vType ? `<span style="font-size:10px;color:var(--gray-400)">(${esc(r.vType)})</span>` : '';
-    vHTML = `
-      <div class="r-row">
-        <svg class="r-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-          <rect x="1" y="9" width="22" height="9" rx="2"/>
-          <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
-          <path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
-        </svg>
-        <div>
-          <div class="r-label">Vehicle(s)</div>
-          <div class="plates">${platePills}</div>
-          ${vtLabel}
-        </div>
-      </div>`;
-  } else {
-    vHTML = `
-      <div class="r-row">
-        <svg class="r-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-          <rect x="1" y="9" width="22" height="9" rx="2"/><circle cx="7" cy="18" r="2"/>
-          <circle cx="17" cy="18" r="2"/><path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
-          <line x1="4" y1="4" x2="20" y2="20" stroke="#e5e7eb" stroke-width="1.5"/>
-        </svg>
-        <div>
-          <div class="r-label">Vehicle</div>
-          <div class="r-value" style="color:var(--gray-300);font-size:12px">None registered</div>
-        </div>
-      </div>`;
-  }
-
-  /* ── phone section ── */
-  const phoneHTML = r.phone ? `
-    <div class="r-row">
-      <svg class="r-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
-        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 5.18 2 2 0 015 3h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.09 10.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 17z"/>
+  const phoneRow = r.phone ? `
+    <div class="crow">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
+                 A19.5 19.5 0 013 5.18 2 2 0 015 3h3a2 2 0 012 1.72
+                 c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.09 10.91
+                 a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45
+                 c.907.339 1.85.573 2.81.7A2 2 0 0122 17z"/>
       </svg>
       <div>
-        <div class="r-label">WhatsApp</div>
-        <div class="r-value mono">${esc(r.phone)}</div>
+        <div class="clabel">Mobile / WhatsApp</div>
+        <div class="cval mono">${esc(r.phone)}</div>
       </div>
     </div>` : '';
 
+  const vRow = hasVeh ? `
+    <div class="crow">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round">
+        <rect x="1" y="9" width="22" height="9" rx="2"/>
+        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+        <path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
+      </svg>
+      <div>
+        <div class="clabel">Vehicle${r.plates.length>1?'s':''}</div>
+        <div class="plates">${r.plates.map(p=>`<span class="plate">${esc(p)}</span>`).join('')}</div>
+        ${r.vType?`<div style="font-size:10px;color:var(--text4);margin-top:3px">${esc(r.vType)}</div>`:''}
+      </div>
+    </div>` : `
+    <div class="crow">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" style="opacity:.18">
+        <rect x="1" y="9" width="22" height="9" rx="2"/>
+        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+        <path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
+      </svg>
+      <div>
+        <div class="clabel">Vehicle</div>
+        <div class="cval muted">None registered</div>
+      </div>
+    </div>`;
+
   div.innerHTML = `
-    <!-- Header -->
-    <div class="r-card-header">
+    <div class="ch">
       <div style="flex:1;min-width:0;padding-right:8px">
-        <div class="r-name">${esc(r.name)}</div>
-        <div class="r-sub">
+        <div class="rname">${esc(r.name)}</div>
+        <div class="rbadges">
           ${typeBadge}
-          <span class="badge badge-verified">✓ Verified</span>
+          <span class="badge b-ok">✓ Verified</span>
           ${floorBadge}
         </div>
       </div>
-      <div class="r-flat-block">
-        <div class="flat-chip">
-          ${esc(blockDisplay)}
-          <small>Flat ${esc(flatDisplay)}</small>
+      <div class="fc">
+        <div class="fc-in">
+          ${esc(r.block)||'—'}
+          <small>Flat ${esc(r.flat)||'—'}</small>
         </div>
       </div>
     </div>
-
-    <!-- Body -->
-    <div class="r-card-body">
-      ${phoneHTML}
-      ${vHTML}
-    </div>
-
-    <!-- Footer -->
-    <div class="r-card-footer">
-      <span class="r-ts">
-        Submitted: ${esc(r.ts ? r.ts.toString().substring(0,20) : '—')}
-      </span>
-      <span class="badge badge-verified" style="font-size:9px">Active</span>
-    </div>
-  `;
+    <div class="cb">${phoneRow}${vRow}</div>
+    <div class="cf">
+      <span class="cts">Submitted: ${esc(r.ts ? r.ts.substring(0,20) : '—')}</span>
+      <span class="badge b-ok" style="font-size:9px">Active</span>
+    </div>`;
 
   return div;
 }
 
-/* ═══════════════════════════════════════════════════
-   UTILS
-═══════════════════════════════════════════════════ */
-function normFlat(raw) {
-  const s = raw.toString().trim();
-  const n = parseInt(s, 10);
-  if (!isNaN(n) && n >= 1 && n <= 4) return String(n).padStart(3,'0');
-  return s;
-}
-
-function floorLabel(flat) {
-  const n = parseInt(flat, 10);
-  if (isNaN(n)) return '';
-  if (n <= 4)              return 'Ground Floor';
-  if (n>=101 && n<=104)   return '1st Floor';
-  if (n>=201 && n<=204)   return '2nd Floor';
-  if (n>=301 && n<=304)   return '3rd Floor';
-  return '';
-}
-
-function splitPlates(v) {
-  if (!v || v.toString().trim() === '' || v === 'N/A') return [];
-  return v.toString()
-    .split(/[,;|\/\n]+/)
-    .map(s => s.replace(/\s+/g,' ').trim().toUpperCase())
-    .filter(s => s.length > 2 && !/^n\/?a$/i.test(s));
-}
-
-function vcategory(vt) {
-  if (!vt) return 'none';
-  const has2 = /2[\s-]?wheel/i.test(vt);
-  const has4 = /4[\s-]?wheel/i.test(vt);
-  if (has2 && has4) return 'both';
-  if (has4) return '4W';
-  if (has2) return '2W';
-  return 'none';
-}
-
+/* ─── HELPERS ─── */
 function esc(s) {
   return (s||'').toString()
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-
-function setLoader(show, txt='', isErr=false) {
-  const l = document.getElementById('loader');
-  const t = document.getElementById('loader-text');
+function showLoader(show, txt='', isErr=false) {
+  const w = document.getElementById('loader');
+  w.style.display = show ? 'flex' : 'none';
   if (show) {
-    l.style.display = 'flex';
-    t.textContent = txt;
-    t.style.color = isErr ? '#dc2626' : 'var(--gray-400)';
-    document.getElementById('loader').querySelector('.loader').style.display = isErr ? 'none' : 'block';
-  } else {
-    l.style.display = 'none';
+    document.getElementById('ldr-t').textContent = txt;
+    document.getElementById('ldr-t').style.color = isErr ? '#ef4444' : 'var(--text4)';
+    document.querySelector('.spin').style.display = isErr ? 'none' : 'block';
   }
 }
-
 function showPrompt(show) {
-  document.getElementById('prompt').style.display = show ? '' : 'none';
+  document.getElementById('prompt').style.display = show ? 'block' : 'none';
+  if (show) {
+    document.getElementById('rh').classList.remove('on');
+    document.getElementById('res-sum').style.display = 'none';
+  }
 }
 </script>
 </body>
-</html>
+</html>'''
