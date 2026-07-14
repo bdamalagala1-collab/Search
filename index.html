@@ -1,8 +1,10 @@
+html
+
 <!DOCTYPE html>
 <html lang="kn" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#7f1d1d">
@@ -35,120 +37,222 @@
   --sh:0 1px 3px rgba(0,0,0,.4);--sh-md:0 4px 12px rgba(0,0,0,.5);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Noto Sans Kannada",sans-serif;
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Noto Sans Kannada",sans-serif;
   background:
     radial-gradient(circle at 12% 8%,rgba(127,29,29,.12),transparent 28%),
     radial-gradient(circle at 88% 12%,rgba(30,64,175,.11),transparent 26%),
     radial-gradient(circle at 52% 100%,rgba(15,118,110,.10),transparent 28%),
     var(--bg);
-  color:var(--text);font-size:14px;min-height:100vh;transition:background .2s,color .2s}
+  color:var(--text);font-size:14px;min-height:100vh;transition:background .2s,color .2s;
+  -webkit-font-smoothing:antialiased;
+}
 
-/* HEADER */
-.hdr{background:linear-gradient(135deg,#6b1111 0%,#7f1d1d 40%,#1e3a5f 100%);color:#fff;
-  position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.35)}
-.hdr-in{max-width:960px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;gap:0}
+/* ── HEADER ── */
+.hdr{
+  background:linear-gradient(135deg,#6b1111 0%,#7f1d1d 40%,#1e3a5f 100%);
+  color:#fff;position:sticky;top:0;z-index:200;
+  box-shadow:0 2px 16px rgba(0,0,0,.35);
+}
+.hdr-in{
+  max-width:960px;margin:0 auto;
+  padding:10px 12px;
+  display:flex;align-items:center;gap:0;
+}
 .hdr-t{flex:1;min-width:0}
-.hdr-kn{font-size:13.5px;font-weight:700;line-height:1.3;color:#fff}
-.hdr-en{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.8);margin-top:2px}
-.hdr-addr{font-size:8.5px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.55}
-.hdr-r{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:12px}
-.hdr-st{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
-  border-radius:9px;padding:6px 10px;text-align:center;display:none;min-width:138px}
-@media(min-width:440px){.hdr-st{display:block}}
-.hdr-st .sn{font-size:12px;font-weight:700;color:#fff;line-height:1.2;margin-top:2px;white-space:nowrap}
-.hdr-st .sl{font-size:8.5px;color:rgba(255,255,255,.72);display:block;margin-top:1px;text-transform:uppercase;letter-spacing:.35px}
-.dark-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+.hdr-kn{font-size:12.5px;font-weight:700;line-height:1.3;color:#fff}
+.hdr-en{font-size:10px;font-weight:600;color:rgba(255,255,255,.8);margin-top:2px}
+.hdr-addr{font-size:8px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.55}
+.hdr-r{display:flex;align-items:center;gap:7px;flex-shrink:0;margin-left:10px}
+.hdr-st{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  border-radius:9px;padding:5px 9px;text-align:center;display:none;
+}
+@media(min-width:420px){.hdr-st{display:block;min-width:130px}}
+.hdr-st .sn{font-size:11px;font-weight:700;color:#fff;line-height:1.2;margin-top:2px;white-space:nowrap}
+.hdr-st .sl{font-size:8px;color:rgba(255,255,255,.72);display:block;margin-top:1px;text-transform:uppercase;letter-spacing:.35px}
+.dark-btn{
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
   color:#fff;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:16px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .15s;touch-action:manipulation;
+}
 .dark-btn:hover{background:rgba(255,255,255,.2)}
+.dark-btn:active{opacity:.75}
 
-/* MAIN */
-.main{max-width:960px;margin:0 auto;padding:14px 12px 48px}
+/* DATA SOURCE BADGES */
+.ds-bar{
+  background:rgba(0,0,0,.25);border-bottom:1px solid rgba(255,255,255,.1);
+  padding:5px 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+}
+.ds-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:100%}
+.ds-badge{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;
+  border:1px solid rgba(255,255,255,.2);
+}
+.ds-badge.src1{background:rgba(30,64,175,.3);color:#93c5fd}
+.ds-badge.src2{background:rgba(15,118,110,.3);color:#5eead4}
+.ds-badge.loading{background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)}
+.ds-dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.ds-dot.green{background:#4ade80}
+.ds-dot.amber{background:#fbbf24}
+.ds-dot.red{background:#f87171}
+.ds-dot.gray{background:#94a3b8}
 
-/* SEARCH CARD */
-.scard{background:linear-gradient(180deg,var(--surface),var(--surface2));border:1px solid var(--border);border-radius:18px;
-  padding:15px;margin-bottom:14px;box-shadow:var(--sh-md);position:relative;overflow:hidden}
-.scard::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;
-  background:linear-gradient(90deg,#7f1d1d,#1e40af,#0f766e,#92400e)}
-.stitle{font-size:11px;font-weight:600;color:var(--text4);text-transform:uppercase;
-  letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+/* ── MAIN ── */
+.main{max-width:960px;margin:0 auto;padding:12px 10px 48px}
+
+/* ── SEARCH CARD ── */
+.scard{
+  background:linear-gradient(180deg,var(--surface),var(--surface2));
+  border:1px solid var(--border);border-radius:18px;
+  padding:13px;margin-bottom:12px;box-shadow:var(--sh-md);
+  position:relative;overflow:hidden;
+}
+.scard::before{
+  content:"";position:absolute;left:0;top:0;right:0;height:4px;
+  background:linear-gradient(90deg,#7f1d1d,#1e40af,#0f766e,#92400e);
+}
+.stitle{
+  font-size:10.5px;font-weight:700;color:var(--text4);text-transform:uppercase;
+  letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:5px;
+}
 .srow{display:flex;gap:7px;margin-bottom:10px}
-.srow input{flex:1;padding:10px 13px;border:1.5px solid var(--border2);border-radius:var(--r);
-  font-size:14px;color:var(--text);background:var(--surface2);
-  transition:border-color .15s,box-shadow .15s;font-family:inherit}
-.srow input:focus{outline:none;border-color:var(--red);
-  box-shadow:0 0 0 3px rgba(127,29,29,.12);background:var(--surface)}
-.srow input::placeholder{color:var(--text4)}
-.btn-go{background:linear-gradient(135deg,var(--red),#1e3a5f);color:#fff;border:none;padding:10px 18px;border-radius:var(--r);
-  font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
-  display:flex;align-items:center;gap:5px;transition:transform .15s,filter .15s;font-family:inherit;box-shadow:0 6px 14px rgba(127,29,29,.22)}
+.srow input{
+  flex:1;min-width:0;padding:11px 13px;
+  border:1.5px solid var(--border2);border-radius:var(--r);
+  font-size:15px;color:var(--text);background:var(--surface2);
+  transition:border-color .15s,box-shadow .15s;font-family:inherit;
+  -webkit-appearance:none;appearance:none;
+}
+.srow input:focus{
+  outline:none;border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(127,29,29,.12);background:var(--surface);
+}
+.srow input::placeholder{color:var(--text4);font-size:13px}
+.btn-go{
+  background:linear-gradient(135deg,var(--red),#1e3a5f);color:#fff;border:none;
+  padding:11px 16px;border-radius:var(--r);
+  font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;
+  display:flex;align-items:center;gap:5px;flex-shrink:0;
+  transition:transform .15s,filter .15s;font-family:inherit;
+  box-shadow:0 6px 14px rgba(127,29,29,.22);touch-action:manipulation;
+}
 .btn-go:hover{filter:brightness(1.08);transform:translateY(-1px)}
-.btn-go:active{opacity:.88}
+.btn-go:active{opacity:.85;transform:translateY(0)}
 
-/* Filters */
+/* ── FILTERS ── */
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
 @media(min-width:520px){.fgrid{grid-template-columns:repeat(4,1fr)}}
-.fsel{font-size:12px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;
+.fsel{
+  font-size:12px;padding:9px 10px;border:1.5px solid var(--border);border-radius:8px;
   background:var(--surface2);color:var(--text2);cursor:pointer;
-  appearance:none;-webkit-appearance:none;width:100%;font-family:inherit;
+  -webkit-appearance:none;appearance:none;width:100%;font-family:inherit;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7280'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 8px center;padding-right:26px}
+  background-repeat:no-repeat;background-position:right 8px center;padding-right:26px;
+  touch-action:manipulation;min-height:40px;
+}
 .fsel:focus{outline:none;border-color:var(--red)}
 [data-theme="dark"] .fsel{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E")}
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E");
+}
 
+/* ── ACTION ROW ── */
 .arow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
-.btn-clear{font-size:11.5px;padding:7px 13px;border:1.5px solid var(--border);border-radius:8px;
-  background:var(--surface2);color:var(--text3);cursor:pointer;font-weight:500;
-  font-family:inherit;transition:background .12s}
-.btn-clear:hover{background:var(--border)}
-.res-sum{font-size:12px;color:var(--text3);margin-left:auto;display:none}
+
+/* CLEAR BUTTON — now bold & colored */
+.btn-clear{
+  font-size:12px;padding:9px 16px;
+  border:2px solid #dc2626;border-radius:8px;
+  background:#dc2626;color:#fff;
+  cursor:pointer;font-weight:700;font-family:inherit;
+  transition:background .12s,border-color .12s,transform .12s;
+  touch-action:manipulation;letter-spacing:.2px;
+  display:flex;align-items:center;gap:4px;
+  box-shadow:0 3px 8px rgba(220,38,38,.25);
+}
+.btn-clear:hover{background:#b91c1c;border-color:#b91c1c}
+.btn-clear:active{transform:scale(.97);opacity:.9}
+
+.res-sum{font-size:11.5px;color:var(--text3);margin-left:auto;display:none}
 .res-sum b{color:var(--red-t);font-size:13px}
 
-/* Quick pills */
-.qlabel{font-size:10px;color:var(--text4);font-weight:500;margin-bottom:5px}
-.qpills{display:flex;gap:4px;flex-wrap:wrap}
-.pill{font-size:11px;padding:5px 11px;border-radius:20px;border:1.5px solid var(--border);
+/* ── QUICK PILLS ── */
+.qlabel{font-size:10px;color:var(--text4);font-weight:600;margin-bottom:5px}
+.qpills{display:flex;gap:5px;flex-wrap:wrap}
+.pill{
+  font-size:11px;padding:5px 11px;border-radius:20px;
+  border:1.5px solid var(--border);
   background:var(--surface2);color:var(--text3);cursor:pointer;
-  transition:all .12s;font-weight:500;font-family:inherit}
+  transition:all .12s;font-weight:600;font-family:inherit;
+  touch-action:manipulation;
+}
 .pill:hover,.pill.on{background:var(--red);color:#fff;border-color:var(--red)}
-.hint{font-size:10px;color:var(--text4);margin-top:10px;display:flex;align-items:center;gap:4px}
+.pill:active{transform:scale(.95)}
 
-/* LOADER */
-.ldr{display:none;justify-content:center;align-items:center;padding:44px;gap:10px}
+.hint{font-size:10px;color:var(--text4);margin-top:10px;display:flex;align-items:flex-start;gap:4px;line-height:1.5}
+
+/* ── LOADER ── */
+.ldr{display:none;justify-content:center;align-items:center;padding:44px;gap:10px;flex-direction:column}
+.ldr-row{display:flex;align-items:center;gap:10px}
 .spin{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--red);
   border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.ldr-t{font-size:13px;color:var(--text4)}
+.ldr-t{font-size:13px;color:var(--text4);text-align:center}
+.ldr-prog{width:220px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-top:6px}
+.ldr-prog-bar{height:100%;background:linear-gradient(90deg,var(--red),#1e40af);border-radius:2px;transition:width .3s}
 
-/* PROMPT */
-.prompt{text-align:center;padding:52px 24px;display:none}
+/* ── PROMPT ── */
+.prompt{text-align:center;padding:48px 24px;display:none}
 .prompt svg{margin:0 auto 12px;opacity:.2}
-.prompt h3{font-size:14px;font-weight:600;color:var(--text3);margin-bottom:4px}
-.prompt p{font-size:12px;color:var(--text4)}
+.prompt h3{font-size:14px;font-weight:700;color:var(--text3);margin-bottom:4px}
+.prompt p{font-size:12px;color:var(--text4);line-height:1.6}
 
-/* RESULTS HEADER */
-.rh{display:none;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;
-  background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px 12px;box-shadow:var(--sh)}
+/* ── RESULTS HEADER ── */
+.rh{
+  display:none;justify-content:space-between;align-items:center;
+  margin-bottom:12px;gap:10px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:10px 12px;box-shadow:var(--sh);
+}
 .rh.on{display:flex}
 .result-title{display:block;font-size:14px;font-weight:800;color:var(--text);line-height:1.2}
-.result-sub{display:block;font-size:10.5px;color:var(--text4);margin-top:2px;font-weight:600;letter-spacing:.25px;text-transform:uppercase}
-.sort-btn{font-size:11px;color:var(--text2);padding:7px 11px;border:1px solid var(--border);
-  border-radius:999px;background:var(--surface2);cursor:pointer;font-family:inherit;font-weight:700;white-space:nowrap}
+.result-sub{display:block;font-size:10px;color:var(--text4);margin-top:2px;font-weight:600;letter-spacing:.25px;text-transform:uppercase}
+.rh-right{display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.sort-btn{
+  font-size:11px;color:var(--text2);padding:7px 11px;
+  border:1px solid var(--border);border-radius:999px;
+  background:var(--surface2);cursor:pointer;font-family:inherit;
+  font-weight:700;white-space:nowrap;touch-action:manipulation;
+}
 .sort-btn:hover{border-color:var(--red);color:var(--red-t)}
 .filter-chips{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
-.filter-chip{display:inline-flex;align-items:center;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:999px;
-  color:var(--red-t);background:var(--red3);border:1px solid rgba(127,29,29,.14)}
+.filter-chip{
+  display:inline-flex;align-items:center;font-size:10.5px;font-weight:800;
+  padding:4px 9px;border-radius:999px;
+  color:var(--red-t);background:var(--red3);border:1px solid rgba(127,29,29,.14);
+}
+.src-tag{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:9.5px;font-weight:700;padding:3px 7px;border-radius:20px;
+  border:1px solid var(--border);background:var(--surface2);color:var(--text4);
+}
 
-/* GRID */
+/* ── GRID ── */
 .rgrid{display:grid;grid-template-columns:1fr;gap:10px}
 @media(min-width:600px){.rgrid{grid-template-columns:1fr 1fr}}
 
-/* FLOOR GROUPS */
-.floor-head{--floor:var(--red);--floor-bg:var(--red3);grid-column:1/-1;margin:8px 0 0;padding:11px 12px;border:1px solid var(--border);
-  border-left:5px solid var(--floor);border-radius:14px;background:linear-gradient(90deg,var(--floor-bg),var(--surface));
-  display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh);gap:10px}
+/* ── FLOOR GROUPS ── */
+.floor-head{
+  --floor:var(--red);--floor-bg:var(--red3);
+  grid-column:1/-1;margin:8px 0 0;padding:11px 12px;
+  border:1px solid var(--border);border-left:5px solid var(--floor);
+  border-radius:14px;background:linear-gradient(90deg,var(--floor-bg),var(--surface));
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:var(--sh);gap:10px;
+}
 .floor-head.floor-gf{--floor:#0f766e;--floor-bg:var(--teal-bg)}
 .floor-head.floor-f1{--floor:#1e40af;--floor-bg:var(--blue-bg)}
 .floor-head.floor-f2{--floor:#5b21b6;--floor-bg:var(--purple-bg)}
@@ -156,13 +260,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Noto San
 .floor-left{min-width:0}
 .floor-title{font-size:14px;font-weight:900;color:var(--text);letter-spacing:.2px}
 .floor-sub{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
-.floor-count{font-size:11px;font-weight:900;color:var(--floor);background:var(--surface);border:1px solid var(--border);
-  border-radius:999px;padding:5px 9px;white-space:nowrap}
+.floor-count{font-size:11px;font-weight:900;color:var(--floor);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:5px 9px;white-space:nowrap}
 
-/* CARD */
-.rcard{background:var(--surface);border:1px solid var(--border);border-radius:18px;
-  overflow:hidden;box-shadow:var(--sh);transition:box-shadow .15s,transform .15s,border-color .15s;position:relative}
+/* ── CARD ── */
+.rcard{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:18px;overflow:hidden;
+  box-shadow:var(--sh);transition:box-shadow .15s,transform .15s,border-color .15s;
+  position:relative;
+}
 .rcard:hover{box-shadow:var(--sh-md);transform:translateY(-2px);border-color:var(--border2)}
+.rcard:active{transform:translateY(0)}
 .rcard.owner{border-top:4px solid #1e40af}
 .rcard.tenant{border-top:4px solid #92400e}
 .rcard.other{border-top:4px solid var(--red)}
@@ -170,49 +278,98 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Noto San
 .rcard.floor-f1 .fc-in{background:linear-gradient(135deg,#1e40af,#60a5fa)}
 .rcard.floor-f2 .fc-in{background:linear-gradient(135deg,#5b21b6,#a78bfa)}
 .rcard.floor-f3 .fc-in{background:linear-gradient(135deg,#92400e,#f59e0b)}
-.ch{display:flex;justify-content:space-between;align-items:flex-start;
-  padding:12px 14px 10px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.45),transparent)}
+
+/* Card header */
+.ch{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding:12px 14px 10px;border-bottom:1px solid var(--border);
+  background:linear-gradient(180deg,rgba(255,255,255,.45),transparent);
+}
+[data-theme="dark"] .ch{background:linear-gradient(180deg,rgba(255,255,255,.04),transparent)}
 .rname{font-size:15px;font-weight:700;color:var(--text);line-height:1.3;word-break:break-word}
 .rbadges{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
-.badge{display:inline-flex;align-items:center;gap:2px;
-  font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.badge{display:inline-flex;align-items:center;gap:2px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
 .b-owner{background:var(--blue-bg);color:var(--blue)}
 .b-tenant{background:var(--amber-bg);color:var(--amber)}
 .b-ok{background:var(--green-bg);color:var(--green)}
 .b-floor{background:var(--purple-bg);color:var(--purple)}
 .b-gf{background:var(--teal-bg);color:var(--teal)}
+.b-src1{background:rgba(30,64,175,.12);color:var(--blue);border:1px solid rgba(30,64,175,.2)}
+.b-src2{background:rgba(15,118,110,.12);color:var(--teal);border:1px solid rgba(15,118,110,.2)}
+.b-conflict{background:#fef2f2;color:#dc2626;border:1px solid rgba(220,38,38,.2)}
+[data-theme="dark"] .b-conflict{background:#2d1515;color:#f87171}
+
+/* Flat badge */
 .fc{text-align:center;flex-shrink:0;margin-left:8px}
-.fc-in{display:inline-block;background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;
+.fc-in{
+  display:inline-block;
+  background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;
   font-size:13px;font-weight:700;padding:7px 11px;border-radius:9px;
   font-family:"SF Mono",SFMono-Regular,Menlo,monospace;
-  white-space:nowrap;min-width:66px;text-align:center;box-shadow:0 6px 14px rgba(0,0,0,.12)}
+  white-space:nowrap;min-width:64px;text-align:center;
+  box-shadow:0 6px 14px rgba(0,0,0,.12);
+}
 .fc-in small{font-size:9px;display:block;opacity:.8;margin-top:1px;font-weight:400;font-family:inherit}
-.cb{padding:10px 12px 12px;display:grid;gap:8px}
-.crow{display:flex;align-items:flex-start;gap:8px;margin-bottom:0;background:var(--surface2);
-  border:1px solid var(--border);border-radius:12px;padding:8px}
-.crow:last-child{margin-bottom:0}
+
+/* Card body */
+.cb{padding:10px 12px 12px;display:grid;gap:7px}
+.crow{
+  display:flex;align-items:flex-start;gap:8px;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:12px;padding:8px;
+}
 .cicon{flex-shrink:0;width:16px;height:16px;margin-top:1px;color:var(--red-t)}
 .clabel{font-size:10.5px;color:var(--text4);font-weight:500;margin-bottom:1px}
 .cval{font-size:12.5px;color:var(--text2);font-weight:500;line-height:1.4}
 .cval.mono{font-family:"SF Mono",SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.4px}
 .cval.muted{color:var(--text4);font-style:italic;font-size:12px}
 .plates{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
-.plate{font-family:"SF Mono",monospace;font-size:11px;font-weight:700;
+.plate{
+  font-family:"SF Mono",monospace;font-size:11px;font-weight:700;
   padding:3px 8px;border-radius:5px;border:1.5px solid var(--border2);
-  background:var(--surface2);color:var(--text);letter-spacing:.5px;text-transform:uppercase}
-.cf{padding:6px 14px;background:var(--surface2);border-top:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center}
+  background:var(--surface);color:var(--text);letter-spacing:.5px;text-transform:uppercase;
+}
+
+/* Card footer */
+.cf{
+  padding:6px 14px;background:var(--surface2);
+  border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;
+}
 .cts{font-size:9.5px;color:var(--text4)}
 
-/* NO RESULT */
-.nores{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
-  padding:44px 24px;text-align:center;grid-column:1/-1}
+/* ── NO RESULT ── */
+.nores{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--rl);padding:44px 24px;text-align:center;
+  grid-column:1/-1;
+}
 .nores svg{margin:0 auto 10px;opacity:.25}
 .nores p{font-size:13px;color:var(--text3);margin-top:6px}
 .nores .sub{font-size:11px;color:var(--text4);margin-top:4px}
 
-footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4);
-  max-width:960px;margin:0 auto;line-height:1.7;border-top:1px solid var(--border);margin-top:20px}
+/* ── STATS PILLS ── */
+.stats-row{
+  display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;
+}
+.stat-pill{
+  flex:1;min-width:80px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:12px;padding:9px 10px;text-align:center;
+  box-shadow:var(--sh);
+}
+.stat-pill .sv{font-size:17px;font-weight:900;color:var(--text);line-height:1}
+.stat-pill .sl{font-size:9.5px;font-weight:600;color:var(--text4);text-transform:uppercase;letter-spacing:.4px;margin-top:3px}
+.stat-pill.owner .sv{color:var(--blue)}
+.stat-pill.tenant .sv{color:var(--amber)}
+.stat-pill.total .sv{color:var(--red-t)}
+.stat-pill.conflict .sv{color:#dc2626}
+
+footer{
+  text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4);
+  max-width:960px;margin:0 auto;line-height:1.7;
+  border-top:1px solid var(--border);margin-top:20px;
+}
 </style>
 </head>
 <body>
@@ -229,15 +386,52 @@ footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4
     </div>
     <div class="hdr-r">
       <div class="hdr-st" id="hdr-st">
-        <span class="sl">Last Form Submitted On</span>
+        <span class="sl">Latest Entry</span>
         <div class="sn" id="hst-n">—</div>
       </div>
       <button class="dark-btn" id="dark-btn" onclick="toggleDark()" aria-label="Toggle dark mode">🌙</button>
     </div>
   </div>
+
+  <!-- Data source status bar -->
+  <div class="ds-bar">
+    <div class="ds-inner">
+      <span id="ds-badge1" class="ds-badge loading">
+        <span class="ds-dot gray" id="ds-dot1"></span>
+        <span id="ds-label1">Verification Form…</span>
+      </span>
+      <span id="ds-badge2" class="ds-badge loading">
+        <span class="ds-dot gray" id="ds-dot2"></span>
+        <span id="ds-label2">Owner/Tenant Confirm…</span>
+      </span>
+      <span id="ds-merge" style="font-size:10px;color:rgba(255,255,255,.45);display:none">Merged &amp; Cross-referenced</span>
+    </div>
+  </div>
 </header>
 
 <div class="main">
+
+  <!-- Live stats -->
+  <div class="stats-row" id="stats-row" style="display:none">
+    <div class="stat-pill total">
+      <div class="sv" id="st-total">—</div>
+      <div class="sl">Total Entries</div>
+    </div>
+    <div class="stat-pill owner">
+      <div class="sv" id="st-owner">—</div>
+      <div class="sl">Owners</div>
+    </div>
+    <div class="stat-pill tenant">
+      <div class="sv" id="st-tenant">—</div>
+      <div class="sl">Tenants</div>
+    </div>
+    <div class="stat-pill conflict">
+      <div class="sv" id="st-conflict">—</div>
+      <div class="sl">Conflicts</div>
+    </div>
+  </div>
+
+  <!-- Search card -->
   <div class="scard">
     <div class="stitle">
       <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
@@ -249,9 +443,9 @@ footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4
 
     <div class="srow">
       <input type="search" id="q" inputmode="search"
-        placeholder="ಹೆಸರು · ಮೊಬೈಲ್ · ವಾಹನ ನಂಬರ್ · Block · Flat · Floor…"
+        placeholder="ಹೆಸರು · ಮೊಬೈಲ್ · ವಾಹನ · Block · Flat…"
         autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
-      <button class="btn-go" onclick="doSearch()">
+      <button class="btn-go" onclick="doSearch()" aria-label="Search">
         <svg width="13" height="13" fill="none" stroke="currentColor"
              stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -307,7 +501,11 @@ footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4
     </div>
 
     <div class="arow">
-      <button class="btn-clear" onclick="clearAll()">✕ &nbsp;Clear Search</button>
+      <button class="btn-clear" onclick="clearAll()" aria-label="Clear all filters">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"
+             stroke-linecap="round" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        Clear Search
+      </button>
       <div class="res-sum" id="res-sum"></div>
     </div>
 
@@ -315,17 +513,20 @@ footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4
     <div class="qpills" id="qpills"></div>
 
     <p class="hint">
-      <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px">
         <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
       </svg>
-      Press Enter or tap Search · You can also search GroundFloor, FirstFloor, SecondFloor or ThirdFloor
+      Press Enter or tap Search &nbsp;·&nbsp; Search by floor: GroundFloor, FirstFloor, SecondFloor, ThirdFloor &nbsp;·&nbsp; Results merge both data sources
     </p>
   </div>
 
   <!-- Loader -->
   <div class="ldr" id="loader">
-    <div class="spin"></div>
-    <span class="ldr-t" id="ldr-t">Loading resident directory…</span>
+    <div class="ldr-row">
+      <div class="spin"></div>
+      <span class="ldr-t" id="ldr-t">Fetching resident data from both sources…</span>
+    </div>
+    <div class="ldr-prog"><div class="ldr-prog-bar" id="ldr-bar" style="width:0%"></div></div>
   </div>
 
   <!-- Prompt -->
@@ -335,13 +536,19 @@ footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4
     </svg>
     <h3>ಹುಡುಕಾಟ ಮಾಡಿ / Search Residents</h3>
     <p>ಹೆಸರು, ಬ್ಲಾಕ್, ಫ್ಲಾಟ್, ಮೊಬೈಲ್, ವಾಹನ ನಂಬರ್ ಅಥವಾ ಫ್ಲೋರ್ ನಮೂದಿಸಿ</p>
-    <p style="margin-top:4px">Enter name, block, flat, mobile, vehicle number or floor above</p>
+    <p style="margin-top:4px;line-height:1.6">Enter name, block, flat, mobile, vehicle number or floor above</p>
   </div>
 
   <!-- Results header -->
   <div class="rh" id="rh">
-    <span id="rc" style="font-size:12px;color:var(--text3)"></span>
-    <button class="sort-btn" onclick="toggleSort()">⇅ Sort: <span id="sort-lbl">Block / Flat</span></button>
+    <div>
+      <span class="result-title" id="rc">Search Result</span>
+      <span class="result-sub">Floor-wise resident list · dual-source merged</span>
+    </div>
+    <div class="rh-right">
+      <div class="filter-chips" id="filter-chips"></div>
+      <button class="sort-btn" onclick="toggleSort()">⇅ <span id="sort-lbl">Block/Flat</span></button>
+    </div>
   </div>
 
   <div class="rgrid" id="grid"></div>
@@ -351,29 +558,38 @@ footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4
   <strong style="color:var(--red-t)">MBDAAOWA</strong> &nbsp;·&nbsp;
   ಮಾಳಗಳ ಬಿ.ಡಿ.ಎ. ಅಪಾರ್ಟ್‌ಮೆಂಟ್ ಮಾಲೀಕರ ಕ್ಷೇಮಾಭಿವೃದ್ಧಿ ಸಂಘ (ರಿ.) &nbsp;·&nbsp; Reg. SOR/RJR/S-91/2016-17<br>
   Survey No: 53 &amp; 36, Malagala, Panchasheela Nagar, Near Moodalapalya Circle, Nagarabhavi Post, Bangalore – 560 072<br>
-  <span style="color:var(--text4)">Read-only resident verification portal · Live data from Google Sheets</span>
+  <span style="color:var(--text4)">Read-only resident verification portal · Live data from Google Sheets (dual-source)</span>
 </footer>
 
 <script>
-/* ─── CONFIG ─── */
-const SHEET_ID = '1QQ6lkJAO2oZprVqUWPyV5S4ouROkoxAJuHg_p287a14';
-const SHEET    = encodeURIComponent('Form Responses 1');
-const GVZ      = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET}`;
+/* ═══════════════════════════════════════════════════════════════
+   CONFIG
+   ─────────────────────────────────────────────────────────────
+   Source 1: Main verification form (Form Responses 1)
+   Source 2: Owner/Tenant confirmation form
+═══════════════════════════════════════════════════════════════ */
+const SHEET_ID_1  = '1QQ6lkJAO2oZprVqUWPyV5S4ouROkoxAJuHg_p287a14';
+const SHEET_ID_2  = '1cjzSGU1s3kokm8lL8pNkfUoSZG1EZbY9uYQwSeJp2ew';
 
-/* ─── STATE ─── */
+// GViz URLs — sheet name must match exactly
+const GVZ_1 = `https://docs.google.com/spreadsheets/d/${SHEET_ID_1}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent('Form Responses 1')}`;
+const GVZ_2 = `https://docs.google.com/spreadsheets/d/${SHEET_ID_2}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent('Form Responses 1')}`;
+
+/* ── STATE ── */
 let ALL = [], CUR = [], SORT = 'block', READY = false;
+
 const FLOOR_ORDER = ['gf','f1','f2','f3','other'];
-const FLOOR_META = {
-  gf:{title:'Ground Floor', sub:'Flats 001–004'},
-  f1:{title:'First Floor',  sub:'Flats 101–104'},
-  f2:{title:'Second Floor', sub:'Flats 201–204'},
-  f3:{title:'Third Floor',  sub:'Flats 301–304'},
-  other:{title:'Other Flats', sub:'Unmapped floor'}
+const FLOOR_META  = {
+  gf:    {title:'Ground Floor',  sub:'Flats 001–004'},
+  f1:    {title:'First Floor',   sub:'Flats 101–104'},
+  f2:    {title:'Second Floor',  sub:'Flats 201–204'},
+  f3:    {title:'Third Floor',   sub:'Flats 301–304'},
+  other: {title:'Other / Unmapped', sub:'Floor not identified'},
 };
 
-/* ─── DARK MODE ─── */
+/* ── DARK MODE ── */
 function toggleDark() {
-  const d = document.documentElement;
+  const d   = document.documentElement;
   const now = d.dataset.theme === 'dark';
   d.dataset.theme = now ? 'light' : 'dark';
   document.getElementById('dark-btn').textContent = now ? '🌙' : '☀️';
@@ -382,158 +598,422 @@ function toggleDark() {
 (function(){
   try {
     const t = localStorage.getItem('mbda-theme');
-    if (t) {
-      document.documentElement.dataset.theme = t;
-      if (t === 'dark') {
-        window.addEventListener('DOMContentLoaded', () => {
-          const b = document.getElementById('dark-btn');
-          if (b) b.textContent = '☀️';
-        });
-      }
+    if (!t) return;
+    document.documentElement.dataset.theme = t;
+    if (t === 'dark') {
+      document.addEventListener('DOMContentLoaded', () => {
+        const b = document.getElementById('dark-btn');
+        if (b) b.textContent = '☀️';
+      });
     }
   } catch(e){}
 })();
 
-/* ─── BOOT ─── */
+/* ═══════════════════════════════════════════════════════════════
+   BOOT — fetch both sheets in parallel
+═══════════════════════════════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', () => {
-  showLoader(true, 'Loading resident directory…');
-  fetch(GVZ)
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-    .then(txt => {
-      const start = txt.indexOf('{');
-      const end = txt.lastIndexOf('}');
-      if (start < 0 || end < 0) throw new Error('Invalid Google Sheets response');
-      const json = JSON.parse(txt.substring(start, end + 1));
-      ingest(json);
-    })
-    .catch(err => {
-      showLoader(true, '⚠ Could not load data. Ensure Google Sheet is shared as Viewer.', true);
-      console.error(err);
-    });
+  showLoader(true, 'Fetching from both data sources…');
+  setProgress(10);
 
-  document.getElementById('q').addEventListener('keydown', e => {
-    if (e.key === 'Enter') doSearch();
+  const q = document.getElementById('q');
+  q.addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+  q.addEventListener('input', () => { /* live search optional */ });
+
+  const p1 = fetchGVZ(GVZ_1, 1);
+  const p2 = fetchGVZ(GVZ_2, 2);
+
+  Promise.allSettled([p1, p2]).then(([r1, r2]) => {
+    setProgress(70);
+    const rows1 = r1.status === 'fulfilled' ? r1.value : [];
+    const rows2 = r2.status === 'fulfilled' ? r2.value : [];
+
+    // Update source badges
+    updateBadge(1, r1.status === 'fulfilled', rows1.length);
+    updateBadge(2, r2.status === 'fulfilled', rows2.length);
+
+    if (!rows1.length && !rows2.length) {
+      showLoader(true, '⚠ Could not load data from either source. Ensure sheets are shared as Viewer.', true);
+      return;
+    }
+
+    const merged = mergeRows(rows1, rows2);
+    setProgress(90);
+    postIngest(merged);
+    setProgress(100);
+    setTimeout(() => {
+      showLoader(false);
+      showPrompt(true);
+      document.getElementById('ds-merge').style.display = 'inline';
+    }, 300);
   });
 });
 
-/* ─── INGEST ──────────────────────────────────────────────────────────────────
-   Form Responses 1 column map:
-     c[0] = Timestamp
-     c[1] = Email
-     c[2] = Score/WA ref
-     c[3] = Full Name
-     c[4] = WhatsApp / Mobile
-     c[5] = Block  (e.g. "B7")
-     c[6] = Flat   (supports raw 1/2/3/4 and formatted 001/002/003/004)
-     c[7] = Resident Type
-     c[8] = Vehicle Number
-     c[9] = Vehicle Type
-     c[10] = BLock-Flat fallback (e.g. B18-001)
-──────────────────────────────────────────────────────────────────────────── */
-function ingest(json) {
-  const rows = json.table.rows || [];
+/* ── Fetch GViz JSON ── */
+function fetchGVZ(url, srcNum) {
+  return fetch(url)
+    .then(r => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.text();
+    })
+    .then(txt => {
+      const s = txt.indexOf('{');
+      const e = txt.lastIndexOf('}');
+      if (s < 0 || e < 0) throw new Error('Invalid GViz response');
+      const json = JSON.parse(txt.substring(s, e + 1));
+      return json.table.rows || [];
+    })
+    .catch(err => {
+      console.warn(`Source ${srcNum} failed:`, err);
+      return [];   // graceful degradation
+    });
+}
 
-  ALL = rows.map(row => {
+function updateBadge(num, ok, count) {
+  const dot   = document.getElementById(`ds-dot${num}`);
+  const label = document.getElementById(`ds-label${num}`);
+  const badge = document.getElementById(`ds-badge${num}`);
+  if (ok && count > 0) {
+    dot.className   = 'ds-dot green';
+    badge.className = `ds-badge src${num}`;
+    label.textContent = num === 1
+      ? `Verification Form · ${count} rows`
+      : `Owner/Tenant Confirm · ${count} rows`;
+  } else {
+    dot.className   = 'ds-dot red';
+    badge.className = 'ds-badge loading';
+    label.textContent = num === 1 ? 'Verification Form · unavailable' : 'Confirm Form · unavailable';
+  }
+}
+
+function setProgress(pct) {
+  const bar = document.getElementById('ldr-bar');
+  if (bar) bar.style.width = pct + '%';
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INGEST — Source 1: Main Verification Form
+   Column map (Form Responses 1):
+     c[0]  = Timestamp
+     c[1]  = Email
+     c[2]  = Score / WA ref
+     c[3]  = Full Name
+     c[4]  = WhatsApp / Mobile
+     c[5]  = Block  (e.g. "B7")
+     c[6]  = Flat   (raw number: 1–4 or 101–304)
+     c[7]  = Resident Type (Owner / Tenant)
+     c[8]  = Vehicle Number
+     c[9]  = Vehicle Type
+     c[10] = Block-Flat fallback (e.g. "B18-001")
+═══════════════════════════════════════════════════════════════ */
+function parseSource1(rows) {
+  return rows.map(row => {
     const c = row.c || [];
+    const g = makeGetter(c);
 
-    // Safe getter — always returns a plain string.
-    const g = i => {
-      if (!c[i]) return '';
-      const cell = c[i];
-      const val = (i === 0 && cell.f != null) ? cell.f : (cell.v != null ? cell.v : cell.f);
-      if (val == null) return '';
-      return String(val).trim();
-    };
-
-    const blockFlat = g(10).toUpperCase().replace(/\s/g, '');
+    const blockFlat = g(10).toUpperCase().replace(/\s/g,'');
     const block     = normBlock(g(5), blockFlat);
-    const resType = g(7);
+    const flatN     = normFlat(
+      c[6] ? c[6].v : null,
+      c[6] ? c[6].f : null,
+      blockFlat
+    );
 
-    // Ground-floor fix:
-    // Google GViz may send 001/002/003/004 as raw numbers 1/2/3/4,
-    // and in this sheet the main Flat column can be blank for ground floor.
-    // In that case use the BLock-Flat fallback such as "B18-001".
-    const flatCell = c[6] || {};
-    const flatN    = normFlat(flatCell.v, flatCell.f, blockFlat);
-    const floor    = floorLabel(flatN);
-    const fKey     = floorKey(flatN);
-    const vRaw     = g(8);
-
-    return {
+    return buildRecord({
       ts:      g(0),
       name:    g(3),
-      phone:   g(4),
+      phone:   normalizePhone(g(4)),
       block,
       flat:    flatN,
-      blockFlat,
-      floor,
-      fKey,
-      resType,
-      rtL:     resType.toLowerCase(),
-      vehicle: vRaw,
+      resType: g(7),
+      vehicle: g(8),
       vType:   g(9),
-      plates:  splitPlates(vRaw),
-      blob:    '',
-    };
+      source:  1,
+    });
   }).filter(r => r.name.length > 0);
+}
 
-  // Pre-build search blob. Floor aliases allow queries:
-  // GroundFloor, FirstFloor, SecondFloor, ThirdFloor.
-  ALL.forEach(r => {
-    r.blob = [
-      r.name, r.phone, r.block, r.flat, r.blockFlat, r.floor, floorAliases(r.flat),
-      r.vehicle, r.vType, r.resType
-    ].join(' ').toLowerCase();
+/* ═══════════════════════════════════════════════════════════════
+   INGEST — Source 2: Owner/Tenant Confirmation Form
+   We attempt a best-effort parse.
+   Common columns in this type of form:
+     c[0]  = Timestamp
+     c[1]  = Full Name
+     c[2]  = Mobile / WhatsApp
+     c[3]  = Block (e.g. B3)
+     c[4]  = Flat  (e.g. 201 or raw 1–4)
+     c[5]  = Owner or Tenant
+     c[6]  = Owner Name (if tenant, the owner's name)
+     c[7]  = Vehicle Number
+     c[8]  = Vehicle Type
+   We scan all columns and auto-detect key fields.
+═══════════════════════════════════════════════════════════════ */
+function parseSource2(rows, colMap) {
+  // colMap is auto-detected from header row
+  return rows.map(row => {
+    const c = row.c || [];
+    const g = makeGetter(c);
+
+    // Use detected column indices or sensible defaults
+    const iTs    = colMap.ts    ?? 0;
+    const iName  = colMap.name  ?? 1;
+    const iPhone = colMap.phone ?? 2;
+    const iBlock = colMap.block ?? 3;
+    const iFlat  = colMap.flat  ?? 4;
+    const iType  = colMap.type  ?? 5;
+    const iVeh   = colMap.veh   ?? 6;
+    const iVType = colMap.vtype ?? 7;
+
+    const blockRaw  = g(iBlock);
+    const blockFlat = `${blockRaw}-${g(iFlat)}`.toUpperCase().replace(/\s/g,'');
+    const block     = normBlock(blockRaw, blockFlat);
+    const flatN     = normFlat(
+      c[iFlat] ? c[iFlat].v : null,
+      c[iFlat] ? c[iFlat].f : null,
+      blockFlat
+    );
+
+    return buildRecord({
+      ts:      g(iTs),
+      name:    g(iName),
+      phone:   normalizePhone(g(iPhone)),
+      block,
+      flat:    flatN,
+      resType: g(iType),
+      vehicle: g(iVeh),
+      vType:   g(iVType),
+      source:  2,
+    });
+  }).filter(r => r.name.length > 0);
+}
+
+/* Auto-detect column indices from header row of source 2 */
+function detectColMap(rows) {
+  // Find first row that looks like a header (string-only values)
+  const colMap = {};
+  for (const row of rows.slice(0, 3)) {
+    const c = row.c || [];
+    const vals = c.map(cell => String(cell?.v || cell?.f || '').trim().toLowerCase());
+    if (vals.every(v => !v || isNaN(v))) {
+      // Looks like headers
+      vals.forEach((v, i) => {
+        if (/timestamp|time|date/i.test(v))               colMap.ts    = i;
+        if (/name|ಹೆಸರು/i.test(v))                        colMap.name  = i;
+        if (/mobile|phone|whatsapp|contact/i.test(v))     colMap.phone = i;
+        if (/block|ಬ್ಲಾಕ್/i.test(v) && !colMap.block)    colMap.block = i;
+        if (/flat|unit|door/i.test(v) && !colMap.flat)    colMap.flat  = i;
+        if (/type|owner|tenant|resident/i.test(v) && i>2) colMap.type  = i;
+        if (/vehicle.*num|reg.*num|plate/i.test(v))       colMap.veh   = i;
+        if (/vehicle.*type|two|four|bike|car/i.test(v))   colMap.vtype = i;
+      });
+      break;
+    }
+  }
+  return colMap;
+}
+
+/* ── Shared record builder ── */
+function buildRecord({ ts, name, phone, block, flat, resType, vehicle, vType, source }) {
+  const plates = splitPlates(vehicle);
+  const fKey   = floorKey(flat);
+  const floor  = floorLabel(flat);
+  const rtNorm = normalizeResType(resType);
+
+  const rec = {
+    ts, name, phone, block, flat,
+    floor, fKey, resType, rtNorm,
+    vehicle, vType, plates, source,
+    conflict: false,
+    blob: '',
+  };
+
+  rec.blob = [
+    name, phone, block, flat,
+    `${block}-${flat}`, floor, floorAliases(flat),
+    vehicle, vType, resType, rtNorm,
+    source === 1 ? 'source1 form1 verification' : 'source2 form2 confirmation',
+  ].join(' ').toLowerCase();
+
+  return rec;
+}
+
+/* ── Merge both sources ──────────────────────────────────────────
+   Logic:
+   1. Parse both sources.
+   2. For each unique block-flat, collect all entries.
+   3. If multiple entries for same flat, flag as "conflict".
+   4. Entries from source 2 that match a source-1 flat by phone
+      OR name get their resType enriched from source 2 (confirmed).
+   5. Deduplicate: same name + same block-flat → keep latest ts.
+═══════════════════════════════════════════════════════════════ */
+function mergeRows(rows1, rows2) {
+  const parsed1 = parseSource1(rows1);
+
+  // Detect column map for source 2 from its rows
+  const colMap2 = detectColMap(rows2);
+  const parsed2 = parseSource2(rows2, colMap2);
+
+  // Build phone→resType lookup from source 2 (confirmed type)
+  const phoneTypeMap = {};
+  const flatTypeMap  = {};
+  parsed2.forEach(r => {
+    if (r.phone) phoneTypeMap[r.phone] = r.rtNorm;
+    const key = `${r.block}-${r.flat}`;
+    if (!flatTypeMap[key]) flatTypeMap[key] = [];
+    flatTypeMap[key].push(r);
   });
 
-  ALL.sort((a, b) => a.name.localeCompare(b.name));
+  // Enrich source 1 records with confirmed type from source 2
+  parsed1.forEach(r => {
+    const key = `${r.block}-${r.flat}`;
+    const confirmedType = phoneTypeMap[r.phone]
+      || (flatTypeMap[key] && flatTypeMap[key].length === 1
+          ? flatTypeMap[key][0].rtNorm : null);
+    if (confirmedType && r.rtNorm !== confirmedType) {
+      r.rtNorm  = confirmedType;
+      r.resType = confirmedType;
+      r.confirmed = true;          // marker: type confirmed by source 2
+    }
+  });
+
+  // Deduplicate source 1 by name+blockFlat (keep newest ts)
+  const dedup1 = deduplicateByKey(parsed1, r => `${r.name.toLowerCase()}|${r.block}|${r.flat}`);
+
+  // For source 2 entries NOT matched in source 1, add as standalone
+  const s1Keys = new Set(dedup1.map(r => r.phone || `${r.name.toLowerCase()}|${r.block}|${r.flat}`));
+  const unmatched2 = parsed2.filter(r => {
+    if (r.phone && s1Keys.has(r.phone)) return false;
+    const k = `${r.name.toLowerCase()}|${r.block}|${r.flat}`;
+    return !s1Keys.has(k);
+  });
+
+  const merged = [...dedup1, ...unmatched2];
+
+  // Flag conflicts: same block-flat with different resident types
+  const flatGroups = {};
+  merged.forEach(r => {
+    const key = `${r.block}-${r.flat}`;
+    if (!flatGroups[key]) flatGroups[key] = [];
+    flatGroups[key].push(r);
+  });
+  Object.values(flatGroups).forEach(group => {
+    if (group.length > 1) {
+      const types = [...new Set(group.map(r => r.rtNorm))];
+      if (types.length > 1) {
+        group.forEach(r => { r.conflict = true; r.conflictType = types.join('+'); });
+      }
+    }
+  });
+
+  merged.sort((a, b) => a.name.localeCompare(b.name));
+  return merged;
+}
+
+function deduplicateByKey(arr, keyFn) {
+  const map = new Map();
+  arr.forEach(r => {
+    const k = keyFn(r);
+    const existing = map.get(k);
+    if (!existing || r.ts > existing.ts) map.set(k, r);
+  });
+  return [...map.values()];
+}
+
+/* ── Post-merge: finalize and render ── */
+function postIngest(merged) {
+  ALL = merged;
+
+  const owners   = ALL.filter(r => r.rtNorm === 'owner').length;
+  const tenants  = ALL.filter(r => r.rtNorm === 'tenant').length;
+  const conflicts= ALL.filter(r => r.conflict).length;
+
+  document.getElementById('st-total').textContent    = ALL.length;
+  document.getElementById('st-owner').textContent    = owners;
+  document.getElementById('st-tenant').textContent   = tenants;
+  document.getElementById('st-conflict').textContent = conflicts;
+  document.getElementById('stats-row').style.display = 'flex';
+
+  const latest = [...ALL].reverse().find(r => r.ts)?.ts || '—';
+  const sn = document.getElementById('hst-n');
+  if (sn) sn.textContent = latest.substring(0, 16);
+  document.getElementById('hdr-st').style.display = 'block';
 
   buildBlockDD();
   buildPills();
-  renderStats();
-  showLoader(false);
-  showPrompt(true);
   READY = true;
 }
 
-/* ─── NORMALISE FLAT ─────────────────────────────────────────────────────
-   Accepts both raw and formatted GViz values.
-   1  → "001"   2  → "002"   3  → "003"   4  → "004"
-   101 → "101"  203 → "203"  304 → "304"  etc.
-────────────────────────────────────────────────────────────────────────── */
-function normBlock(raw, blockFlat) {
-  const direct = String(raw || '').trim().toUpperCase().replace(/\s/g, '');
-  if (direct) return direct;
-  const m = String(blockFlat || '').toUpperCase().match(/\bB\s*(\d{1,2})\b/);
-  return m ? `B${parseInt(m[1], 10)}` : '';
+/* ═══════════════════════════════════════════════════════════════
+   NORMALIZE HELPERS
+═══════════════════════════════════════════════════════════════ */
+function makeGetter(c) {
+  return function(i) {
+    if (!c[i]) return '';
+    const cell = c[i];
+    // Timestamp: prefer formatted value (human-readable)
+    const val = (cell.f != null) ? cell.f : (cell.v != null ? cell.v : '');
+    return String(val).trim();
+  };
 }
 
-function normFlat(raw, formatted, blockFlat) {
-  const candidates = [formatted, raw, blockFlat].filter(v => v != null && String(v).trim() !== '');
-  if (!candidates.length) return '';
+function normalizePhone(raw) {
+  if (!raw) return '';
+  let s = String(raw).trim();
+  // Handle scientific notation (Google Sheets bug with long numbers)
+  if (/e\+/i.test(s)) {
+    try { s = parseFloat(s).toFixed(0); } catch(e){}
+  }
+  s = s.replace(/[^0-9+]/g, '');
+  // Strip +91 country prefix for consistency
+  if (s.startsWith('+91') && s.length > 12) s = s.slice(3);
+  if (s.startsWith('91') && s.length > 11)  s = s.slice(2);
+  return s;
+}
+
+function normalizeResType(raw) {
+  const s = String(raw || '').toLowerCase().trim();
+  if (/owner/i.test(s))  return 'owner';
+  if (/tenant/i.test(s)) return 'tenant';
+  return s || 'unknown';
+}
+
+function normBlock(raw, blockFlat) {
+  const direct = String(raw || '').trim().toUpperCase().replace(/\s/g,'');
+  if (/^B\d{1,2}$/.test(direct)) return direct;
+  const m = String(blockFlat || '').toUpperCase().match(/\bB(\d{1,2})\b/);
+  return m ? `B${parseInt(m[1],10)}` : (direct || '');
+}
+
+function normFlat(rawV, rawF, blockFlat) {
+  // Priority: formatted value → raw value → block-flat fallback
+  const candidates = [rawF, rawV, blockFlat]
+    .map(v => (v != null ? String(v).trim() : ''))
+    .filter(Boolean);
 
   for (const val of candidates) {
-    const s = String(val).trim().toUpperCase();
-    const bf = s.match(/\bB\s*\d{1,2}\s*[-/]\s*(00[1-4]|[1-3]0[1-4])\b/);
+    const s = val.toUpperCase();
+    // e.g. "B7-201" or "B7/201"
+    const bf = s.match(/B\s*\d{1,2}\s*[-\/]\s*(00[1-4]|[1-3]0[1-4])/i);
     if (bf) return bf[1];
-    if (/^00[1-4]$/.test(s)) return s;
+    if (/^00[1-4]$/.test(s))     return s;
     if (/^[1-3]0[1-4]$/.test(s)) return s;
   }
 
-  const s = String(candidates[0]).trim();
-  const m = s.match(/\d+/);
-  if (!m) return s;
+  // Numeric fallback
+  const first = candidates[0];
+  if (!first) return '';
+  const m = first.match(/\d+/);
+  if (!m) return first;
   const n = parseInt(m[0], 10);
-  if (isNaN(n)) return s;
+  if (isNaN(n)) return first;
 
-  if (n >= 1 && n <= 4)     return String(n).padStart(3, '0');
+  if (n >= 1   && n <= 4)   return String(n).padStart(3,'0');
   if (n >= 101 && n <= 104) return String(n);
   if (n >= 201 && n <= 204) return String(n);
   if (n >= 301 && n <= 304) return String(n);
-  return String(n).padStart(3, '0');
+  return String(n).padStart(3,'0');
 }
 
-/* ─── FLOOR LABEL ─── */
 function floorLabel(flat) {
   const n = parseInt(flat, 10);
   if (isNaN(n))              return '';
@@ -556,37 +1036,43 @@ function floorKey(flat) {
 
 function floorAliases(flat) {
   const k = floorKey(flat);
-  if (k === 'gf') return 'ground floor groundfloor ground gf';
-  if (k === 'f1') return 'first floor firstfloor 1st floor 1stfloor';
-  if (k === 'f2') return 'second floor secondfloor 2nd floor 2ndfloor';
-  if (k === 'f3') return 'third floor thirdfloor 3rd floor 3rdfloor';
-  return '';
+  const M = {
+    gf:    'ground floor groundfloor ground gf',
+    f1:    'first floor firstfloor 1st 1stfloor',
+    f2:    'second floor secondfloor 2nd 2ndfloor',
+    f3:    'third floor thirdfloor 3rd 3rdfloor',
+  };
+  return M[k] || '';
 }
 
-/* ─── SPLIT VEHICLE PLATES ─── */
 function splitPlates(v) {
   if (!v) return [];
-  const s = v.toString().trim();
+  const s = String(v).trim();
   if (!s || /^(n\/a|na|nil|none|-+)$/i.test(s)) return [];
-  return s.split(/[,;|\/\n\\]+/)
-    .map(p => p.replace(/\s+/g, ' ').trim().toUpperCase())
-    .filter(p => p.length > 2 && !/^(N\/A|NA|NIL|NONE|NO)$/i.test(p));
+  return s
+    .split(/[,;|\/\n\\]+/)
+    .map(p => p.replace(/\s+/g,' ').trim().toUpperCase())
+    .filter(p => p.length > 2 && !/^(N\/A|NA|NIL|NONE|NO|NO VEHICLE)$/i.test(p));
 }
 
-/* ─── UNIQUE SORTED BLOCKS ─── */
-function uniqueBlocks() {
-  return [...new Set(ALL.map(r => r.block).filter(Boolean))]
-    .sort((a, b) => (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0));
+/* ── Vehicle type helpers ── */
+function is2W(vType) {
+  return /2[\s-]?w|two[\s-]?w|bike|scooter|motor|moped/i.test(vType);
+}
+function is4W(vType) {
+  return /4[\s-]?w|four[\s-]?w|car|suv|truck|van|auto/i.test(vType);
 }
 
+/* ── Block list helpers ── */
 function blockList() {
-  const fixed = Array.from({length:18}, (_, i) => `B${i + 1}`);
-  const found = uniqueBlocks();
+  const fixed = Array.from({length:18}, (_,i) => `B${i+1}`);
+  const found = [...new Set(ALL.map(r => r.block).filter(Boolean))]
+    .sort((a,b) => (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0));
   return [...new Set([...fixed, ...found])]
-    .sort((a, b) => (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0));
+    .sort((a,b) => (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0));
 }
 
-/* ─── BUILD UI ─── */
+/* ── Build UI controls ── */
 function buildBlockDD() {
   const sel = document.getElementById('f-block');
   sel.innerHTML = '<option value="">All Blocks (B1–B18)</option>';
@@ -617,25 +1103,23 @@ function buildPills() {
 
 function syncPills() {
   const b = document.getElementById('f-block').value;
-  document.querySelectorAll('.pill').forEach(p => p.classList.toggle('on', p.textContent === b));
+  document.querySelectorAll('.pill')
+    .forEach(p => p.classList.toggle('on', p.textContent === b));
 }
 
-function renderStats() {
-  const latest = [...ALL].reverse().find(r => r.ts)?.ts || '--';
-  const st = document.getElementById('hdr-st');
-  st.style.display = 'block';
-  st.innerHTML = `<span class="sl">Last Form Submitted On</span><div class="sn">${esc(latest)}</div>`;
-}
-
-/* ─── SEARCH ─── */
+/* ═══════════════════════════════════════════════════════════════
+   SEARCH
+═══════════════════════════════════════════════════════════════ */
 function doSearch() {
   if (!READY) return;
+
   const q   = document.getElementById('q').value.trim().toLowerCase();
   const blk = document.getElementById('f-block').value;
   const flt = document.getElementById('f-flat').value;
   const typ = document.getElementById('f-type').value.toLowerCase();
   const vf  = document.getElementById('f-veh').value;
 
+  // Nothing entered → show prompt
   if (!q && !blk && !flt && !typ && !vf) {
     showPrompt(true);
     document.getElementById('rh').classList.remove('on');
@@ -647,17 +1131,18 @@ function doSearch() {
   showPrompt(false);
 
   CUR = ALL.filter(r => {
-    if (q && !r.blob.includes(q))               return false;
-    if (blk && r.block !== blk)                 return false;
-    if (flt && r.flat !== flt)                  return false;
-    if (typ && !r.rtL.includes(typ))            return false;
-    if (vf === 'has'  && !r.plates.length)      return false;
-    if (vf === 'none' &&  r.plates.length)      return false;
-    if (vf === '2w'   && !/(2[\s-]?wheel|two[\s-]?wheel|bike|scooter)/i.test(r.vType)) return false;
-    if (vf === '4w'   && !/(4[\s-]?wheel|four[\s-]?wheel|car)/i.test(r.vType)) return false;
-    if (vf === 'both' &&
-       !(/(2[\s-]?wheel|two[\s-]?wheel|bike|scooter)/i.test(r.vType) &&
-         /(4[\s-]?wheel|four[\s-]?wheel|car)/i.test(r.vType))) return false;
+    if (q   && !r.blob.includes(q))         return false;
+    if (blk && r.block !== blk)             return false;
+    if (flt && r.flat  !== flt)             return false;
+    if (typ) {
+      if (typ === 'owner'  && r.rtNorm !== 'owner')  return false;
+      if (typ === 'tenant' && r.rtNorm !== 'tenant') return false;
+    }
+    if (vf === 'has'  && !r.plates.length)   return false;
+    if (vf === 'none' &&  r.plates.length)   return false;
+    if (vf === '2w'   && !is2W(r.vType))     return false;
+    if (vf === '4w'   && !is4W(r.vType))     return false;
+    if (vf === 'both' && !(is2W(r.vType) && is4W(r.vType))) return false;
     return true;
   });
 
@@ -679,10 +1164,10 @@ function clearAll() {
 }
 
 function toggleSort() {
-  const m = ['name','block','ts'];
-  SORT = m[(m.indexOf(SORT)+1) % m.length];
+  const modes = ['block','name','ts'];
+  SORT = modes[(modes.indexOf(SORT)+1) % modes.length];
   document.getElementById('sort-lbl').textContent =
-    SORT==='name' ? 'Name A–Z' : SORT==='block' ? 'Block / Flat' : 'Date';
+    SORT==='name' ? 'Name A–Z' : SORT==='block' ? 'Block/Flat' : 'Date';
   applySortRender();
 }
 
@@ -691,43 +1176,53 @@ function applySortRender() {
     CUR.sort((a,b) => a.name.localeCompare(b.name));
   else if (SORT === 'block')
     CUR.sort((a,b) => {
-      const nb = x => parseInt(x.replace(/\D/g,''))||0;
-      return nb(a.block)-nb(b.block) || a.flat.localeCompare(b.flat);
+      const nb = x => parseInt(x.replace(/\D/g,'')||'0',10);
+      return nb(a.block) - nb(b.block) || a.flat.localeCompare(b.flat);
     });
   else
-    CUR.sort((a,b) => b.ts.localeCompare(a.ts));
+    CUR.sort((a,b) => String(b.ts||'').localeCompare(String(a.ts||'')));
+
   renderGrid();
 }
 
 function activeFilterChips() {
+  const chips = [];
   const q   = document.getElementById('q').value.trim();
   const blk = document.getElementById('f-block').value;
   const flt = document.getElementById('f-flat').value;
   const typ = document.getElementById('f-type').value;
   const vf  = document.getElementById('f-veh').value;
-  const chips = [];
-  if (q)   chips.push(`Search: ${q}`);
+  if (q)   chips.push(`"${q}"`);
   if (blk) chips.push(`Block ${blk}`);
   if (flt) chips.push(`Flat ${flt}`);
-  if (typ) chips.push(typ === 'owner' ? 'Owner' : 'Tenant');
-  if (vf)  chips.push(document.querySelector(`#f-veh option[value="${vf}"]`)?.textContent || vf);
-  return chips.length ? chips : ['Floor-wise results'];
+  if (typ) chips.push(typ === 'owner' ? '🏠 Owner' : '🏘 Tenant');
+  if (vf)  {
+    const label = document.querySelector(`#f-veh option[value="${vf}"]`)?.textContent || vf;
+    chips.push(label);
+  }
+  return chips;
 }
 
-/* ─── RENDER ─── */
+/* ═══════════════════════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════════════════════ */
 function renderGrid() {
   const grid = document.getElementById('grid');
   const rh   = document.getElementById('rh');
   const rc   = document.getElementById('rc');
   const rs   = document.getElementById('res-sum');
+  const fc   = document.getElementById('filter-chips');
 
   grid.innerHTML = '';
   rh.classList.add('on');
 
   const n = CUR.length;
-  rc.innerHTML = '<span class="result-title">Search / Query Result</span><span class="result-sub">Systematic floor-wise resident list</span>';
-  rs.innerHTML = n ? `<div class="filter-chips">${activeFilterChips().map(c => `<span class="filter-chip">${esc(c)}</span>`).join('')}</div>` : '';
-  rs.style.display = n ? 'block' : 'none';
+  rc.textContent = `${n} result${n !== 1 ? 's' : ''} found`;
+
+  const chips = activeFilterChips();
+  fc.innerHTML = chips.map(c => `<span class="filter-chip">${esc(c)}</span>`).join('');
+
+  rs.style.display = 'none';   // chips in rh now; res-sum not used separately
 
   if (n === 0) {
     grid.innerHTML = `
@@ -744,6 +1239,7 @@ function renderGrid() {
   }
 
   const displayRows = CUR.slice(0, 100);
+
   FLOOR_ORDER.forEach(k => {
     const rows = displayRows.filter(r => r.fKey === k);
     if (!rows.length) return;
@@ -753,15 +1249,16 @@ function renderGrid() {
 
   if (n > 100) {
     const note = document.createElement('p');
-    note.style.cssText = 'text-align:center;font-size:12px;color:var(--text4);grid-column:1/-1;padding:10px';
-    note.textContent = 'Showing first 100 results — refine your search for more specific results.';
+    note.style.cssText =
+      'text-align:center;font-size:12px;color:var(--text4);grid-column:1/-1;padding:12px';
+    note.textContent = `Showing first 100 of ${n} results — refine your search for more.`;
     grid.appendChild(note);
   }
 }
 
 function makeFloorHead(k, count) {
   const meta = FLOOR_META[k] || FLOOR_META.other;
-  const div = document.createElement('div');
+  const div  = document.createElement('div');
   div.className = `floor-head floor-${k}`;
   div.innerHTML = `
     <div class="floor-left">
@@ -772,23 +1269,34 @@ function makeFloorHead(k, count) {
   return div;
 }
 
-/* ─── MAKE CARD ─── */
+/* ── Card ── */
 function makeCard(r) {
   const div = document.createElement('div');
-  const isOwner  = /owner/i.test(r.rtL);
-  const isTenant = /tenant/i.test(r.rtL);
-  div.className = `rcard floor-${r.fKey} ` + (isOwner ? 'owner' : isTenant ? 'tenant' : 'other');
+  const isOwner  = r.rtNorm === 'owner';
+  const isTenant = r.rtNorm === 'tenant';
+  div.className = `rcard floor-${r.fKey} ${isOwner ? 'owner' : isTenant ? 'tenant' : 'other'}`;
 
-  const isGF   = ['001','002','003','004'].includes(r.flat);
-  const floor  = r.floor || floorLabel(r.flat);
-  const hasVeh = r.plates.length > 0;
+  const isGF  = ['001','002','003','004'].includes(r.flat);
+  const floor = r.floor || floorLabel(r.flat);
 
+  /* badges */
   const typeBadge = r.resType
-    ? `<span class="badge ${isOwner?'b-owner':isTenant?'b-tenant':'b-ok'}">${isOwner?'🏠':'🏘'} ${esc(r.resType)}</span>`
+    ? `<span class="badge ${isOwner?'b-owner':isTenant?'b-tenant':'b-ok'}">
+        ${isOwner?'🏠':'🏘'} ${esc(r.resType)}
+        ${r.confirmed ? '<span title="Confirmed by Owner/Tenant form">✓</span>' : ''}
+       </span>`
     : '';
   const floorBadge = floor
     ? `<span class="badge ${isGF?'b-gf':'b-floor'}">${esc(floor)}</span>` : '';
+  const srcBadge =
+    `<span class="badge ${r.source===1?'b-src1':'b-src2'}" title="Data source ${r.source}">
+       Src${r.source}
+     </span>`;
+  const conflictBadge = r.conflict
+    ? `<span class="badge b-conflict" title="Conflict: ${esc(r.conflictType||'')}">⚠ Conflict</span>`
+    : '';
 
+  /* phone row */
   const phoneRow = r.phone ? `
     <div class="crow">
       <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -799,13 +1307,14 @@ function makeCard(r) {
                  a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45
                  c.907.339 1.85.573 2.81.7A2 2 0 0122 17z"/>
       </svg>
-      <div>
+      <div style="min-width:0">
         <div class="clabel">Mobile / WhatsApp</div>
         <div class="cval mono">${esc(r.phone)}</div>
       </div>
     </div>` : '';
 
-  const vRow = hasVeh ? `
+  /* vehicle row */
+  const vRow = r.plates.length > 0 ? `
     <div class="crow">
       <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
            stroke-width="1.8" stroke-linecap="round">
@@ -813,15 +1322,15 @@ function makeCard(r) {
         <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
         <path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
       </svg>
-      <div>
+      <div style="min-width:0">
         <div class="clabel">Vehicle${r.plates.length>1?'s':''}</div>
         <div class="plates">${r.plates.map(p=>`<span class="plate">${esc(p)}</span>`).join('')}</div>
         ${r.vType?`<div style="font-size:10px;color:var(--text4);margin-top:3px">${esc(r.vType)}</div>`:''}
       </div>
     </div>` : `
     <div class="crow">
-      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="1.8" stroke-linecap="round" style="opacity:.18">
+      <svg class="cicon" style="opacity:.2" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round">
         <rect x="1" y="9" width="22" height="9" rx="2"/>
         <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
         <path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
@@ -840,6 +1349,8 @@ function makeCard(r) {
           ${typeBadge}
           <span class="badge b-ok">✓ Verified</span>
           ${floorBadge}
+          ${srcBadge}
+          ${conflictBadge}
         </div>
       </div>
       <div class="fc">
@@ -851,36 +1362,36 @@ function makeCard(r) {
     </div>
     <div class="cb">${phoneRow}${vRow}</div>
     <div class="cf">
-      <span class="cts">Submitted: ${esc(r.ts ? r.ts.substring(0,20) : '—')}</span>
+      <span class="cts">Submitted: ${esc(r.ts ? String(r.ts).substring(0,19) : '—')}</span>
       <span class="badge b-ok" style="font-size:9px">Active</span>
     </div>`;
 
   return div;
 }
 
-/* ─── HELPERS ─── */
+/* ── HELPERS ── */
 function esc(s) {
-  return (s||'').toString()
+  return (s || '').toString()
     .replace(/&/g,'&amp;').replace(/</g,'&lt;')
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
+
 function showLoader(show, txt='', isErr=false) {
-  const w = document.getElementById('loader');
+  const w    = document.getElementById('loader');
+  const lt   = document.getElementById('ldr-t');
+  const spin = document.querySelector('.spin');
   w.style.display = show ? 'flex' : 'none';
-  if (show) {
-    document.getElementById('ldr-t').textContent = txt;
-    document.getElementById('ldr-t').style.color = isErr ? '#ef4444' : 'var(--text4)';
-    document.querySelector('.spin').style.display = isErr ? 'none' : 'block';
-  }
+  if (!show) return;
+  if (lt)   { lt.textContent = txt; lt.style.color = isErr ? '#ef4444' : 'var(--text4)'; }
+  if (spin)   spin.style.display = isErr ? 'none' : 'block';
 }
+
 function showPrompt(show) {
   document.getElementById('prompt').style.display = show ? 'block' : 'none';
   if (show) {
     document.getElementById('rh').classList.remove('on');
-    document.getElementById('res-sum').style.display = 'none';
   }
 }
 </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
