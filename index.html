@@ -1,335 +1,886 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="kn" data-theme="light">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>Society Owner Registration — Live Dashboard</title>
-<meta name="description" content="Realtime dashboard of BDA society owner form responses: blocks, flats, vehicles, duplicates, data quality." />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#7f1d1d">
+<title>MBDAAOWA — ನಿವಾಸಿ ಹುಡುಕಾಟ</title>
 <style>
-  :root{
-    --bg:#0b1220; --panel:#111a2e; --panel2:#0f172a; --line:#1f2a44;
-    --text:#e6ecff; --muted:#8ea0c8; --brand:#3b82f6; --ok:#22c55e;
-    --warn:#f59e0b; --bad:#ef4444; --chip:#1e293b;
-    --clear:#ef4444;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);
-    font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    -webkit-text-size-adjust:100%}
-  header{padding:16px 14px;border-bottom:1px solid var(--line);
-    position:sticky;top:0;background:rgba(11,18,32,.95);backdrop-filter:blur(8px);z-index:5}
-  h1{margin:0 0 4px;font-size:18px}
-  .sub{color:var(--muted);font-size:12px}
-  main{padding:12px;max-width:1100px;margin:0 auto}
-  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
-  @media(min-width:640px){.kpis{grid-template-columns:repeat(4,1fr)}}
-  .kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
-  .kpi .n{font-size:22px;font-weight:700}
-  .kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
-  .toolbar{display:flex;gap:8px;margin:10px 0 14px;flex-wrap:wrap}
-  .search{flex:1;min-width:180px;display:flex;background:var(--panel);border:1px solid var(--line);
-    border-radius:10px;overflow:hidden}
-  .search input{flex:1;padding:11px 12px;background:transparent;border:0;color:var(--text);
-    font-size:15px;outline:none}
-  .clear-btn{border:0;background:var(--clear);color:#fff;font-weight:800;
-    padding:0 16px;font-size:14px;letter-spacing:.04em;cursor:pointer;
-    text-transform:uppercase}
-  .clear-btn:active{filter:brightness(.9)}
-  select,.btn{background:var(--panel);border:1px solid var(--line);color:var(--text);
-    padding:10px 12px;border-radius:10px;font-size:14px}
-  .btn{cursor:pointer}
-  .tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;margin-bottom:10px;
-    scrollbar-width:none}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{padding:8px 12px;border-radius:999px;background:var(--chip);color:var(--muted);
-    border:1px solid var(--line);white-space:nowrap;cursor:pointer;font-size:13px}
-  .tab.active{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:600}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
-    padding:12px;margin-bottom:12px}
-  .card h2{margin:0 0 10px;font-size:14px;color:var(--muted);text-transform:uppercase;
-    letter-spacing:.06em;font-weight:600}
-  table{width:100%;border-collapse:collapse;font-size:13px}
-  th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase}
-  .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .bar{height:6px;background:var(--panel2);border-radius:99px;overflow:hidden;margin-top:4px}
-  .bar>i{display:block;height:100%;background:var(--brand)}
-  .pill{display:inline-block;padding:2px 8px;border-radius:99px;font-size:11px;font-weight:600}
-  .pill.ok{background:rgba(34,197,94,.15);color:#4ade80}
-  .pill.warn{background:rgba(245,158,11,.15);color:#fbbf24}
-  .pill.bad{background:rgba(239,68,68,.15);color:#f87171}
-  a{color:#7dd3fc}
-  .wa{display:inline-block;background:#25d366;color:#052e16;font-weight:700;
-    padding:5px 10px;border-radius:8px;text-decoration:none;font-size:12px}
-  .empty{text-align:center;color:var(--muted);padding:24px}
-  .footer{color:var(--muted);font-size:11px;text-align:center;padding:16px 8px 32px}
-  .loading{display:flex;align-items:center;justify-content:center;height:60vh;color:var(--muted)}
-  .spin{width:28px;height:28px;border:3px solid var(--line);border-top-color:var(--brand);
-    border-radius:50%;animation:s 1s linear infinite;margin-right:10px}
-  @keyframes s{to{transform:rotate(360deg)}}
+:root{
+  --bg:#f4f5f7;--surface:#fff;--surface2:#f9fafb;
+  --border:#e5e7eb;--border2:#d1d5db;
+  --text:#111827;--text2:#374151;--text3:#6b7280;--text4:#9ca3af;
+  --red:#7f1d1d;--red2:#991b1b;--red3:#fef2f2;--red-t:#7f1d1d;
+  --blue:#1e40af;--blue-bg:#dbeafe;
+  --green:#166534;--green-bg:#dcfce7;
+  --amber:#92400e;--amber-bg:#fef3c7;
+  --purple:#5b21b6;--purple-bg:#ede9fe;
+  --teal:#0f766e;--teal-bg:#ccfbf1;
+  --sh:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.05);
+  --sh-md:0 4px 12px rgba(0,0,0,.10),0 2px 4px rgba(0,0,0,.05);
+  --r:10px;--rl:14px;
+}
+[data-theme="dark"]{
+  --bg:#0f1117;--surface:#1a1d24;--surface2:#23262f;
+  --border:#2d3139;--border2:#3d4149;
+  --text:#f1f5f9;--text2:#cbd5e1;--text3:#94a3b8;--text4:#64748b;
+  --red:#ef4444;--red2:#f87171;--red3:#2d1515;--red-t:#fca5a5;
+  --blue:#60a5fa;--blue-bg:#1e3a5f;
+  --green:#4ade80;--green-bg:#14532d;
+  --amber:#fbbf24;--amber-bg:#451a03;
+  --purple:#a78bfa;--purple-bg:#2e1065;
+  --teal:#2dd4bf;--teal-bg:#042f2e;
+  --sh:0 1px 3px rgba(0,0,0,.4);--sh-md:0 4px 12px rgba(0,0,0,.5);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Noto Sans Kannada",sans-serif;
+  background:
+    radial-gradient(circle at 12% 8%,rgba(127,29,29,.12),transparent 28%),
+    radial-gradient(circle at 88% 12%,rgba(30,64,175,.11),transparent 26%),
+    radial-gradient(circle at 52% 100%,rgba(15,118,110,.10),transparent 28%),
+    var(--bg);
+  color:var(--text);font-size:14px;min-height:100vh;transition:background .2s,color .2s}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#6b1111 0%,#7f1d1d 40%,#1e3a5f 100%);color:#fff;
+  position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.35)}
+.hdr-in{max-width:960px;margin:0 auto;padding:11px 14px;display:flex;align-items:center;gap:0}
+.hdr-t{flex:1;min-width:0}
+.hdr-kn{font-size:13.5px;font-weight:700;line-height:1.3;color:#fff}
+.hdr-en{font-size:10.5px;font-weight:600;color:rgba(255,255,255,.8);margin-top:2px}
+.hdr-addr{font-size:8.5px;color:rgba(255,255,255,.55);margin-top:3px;line-height:1.55}
+.hdr-r{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:12px}
+.hdr-st{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+  border-radius:9px;padding:6px 10px;text-align:center;display:none;min-width:138px}
+@media(min-width:440px){.hdr-st{display:block}}
+.hdr-st .sn{font-size:12px;font-weight:700;color:#fff;line-height:1.2;margin-top:2px;white-space:nowrap}
+.hdr-st .sl{font-size:8.5px;color:rgba(255,255,255,.72);display:block;margin-top:1px;text-transform:uppercase;letter-spacing:.35px}
+.dark-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);
+  color:#fff;border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:16px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s}
+.dark-btn:hover{background:rgba(255,255,255,.2)}
+
+/* MAIN */
+.main{max-width:960px;margin:0 auto;padding:14px 12px 48px}
+
+/* SEARCH CARD */
+.scard{background:linear-gradient(180deg,var(--surface),var(--surface2));border:1px solid var(--border);border-radius:18px;
+  padding:15px;margin-bottom:14px;box-shadow:var(--sh-md);position:relative;overflow:hidden}
+.scard::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;
+  background:linear-gradient(90deg,#7f1d1d,#1e40af,#0f766e,#92400e)}
+.stitle{font-size:11px;font-weight:600;color:var(--text4);text-transform:uppercase;
+  letter-spacing:.7px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.srow{display:flex;gap:7px;margin-bottom:10px}
+.srow input{flex:1;padding:10px 13px;border:1.5px solid var(--border2);border-radius:var(--r);
+  font-size:14px;color:var(--text);background:var(--surface2);
+  transition:border-color .15s,box-shadow .15s;font-family:inherit}
+.srow input:focus{outline:none;border-color:var(--red);
+  box-shadow:0 0 0 3px rgba(127,29,29,.12);background:var(--surface)}
+.srow input::placeholder{color:var(--text4)}
+.btn-go{background:linear-gradient(135deg,var(--red),#1e3a5f);color:#fff;border:none;padding:10px 18px;border-radius:var(--r);
+  font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;
+  display:flex;align-items:center;gap:5px;transition:transform .15s,filter .15s;font-family:inherit;box-shadow:0 6px 14px rgba(127,29,29,.22)}
+.btn-go:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn-go:active{opacity:.88}
+
+/* Filters */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+@media(min-width:520px){.fgrid{grid-template-columns:repeat(4,1fr)}}
+.fsel{font-size:12px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;
+  background:var(--surface2);color:var(--text2);cursor:pointer;
+  appearance:none;-webkit-appearance:none;width:100%;font-family:inherit;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236b7280'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;padding-right:26px}
+.fsel:focus{outline:none;border-color:var(--red)}
+[data-theme="dark"] .fsel{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%2394a3b8'/%3E%3C/svg%3E")}
+
+.arow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.btn-clear{font-size:11.5px;padding:7px 13px;border:1.5px solid var(--border);border-radius:8px;
+  background:var(--surface2);color:var(--text3);cursor:pointer;font-weight:500;
+  font-family:inherit;transition:background .12s}
+.btn-clear:hover{background:var(--border)}
+.res-sum{font-size:12px;color:var(--text3);margin-left:auto;display:none}
+.res-sum b{color:var(--red-t);font-size:13px}
+
+/* Quick pills */
+.qlabel{font-size:10px;color:var(--text4);font-weight:500;margin-bottom:5px}
+.qpills{display:flex;gap:4px;flex-wrap:wrap}
+.pill{font-size:11px;padding:5px 11px;border-radius:20px;border:1.5px solid var(--border);
+  background:var(--surface2);color:var(--text3);cursor:pointer;
+  transition:all .12s;font-weight:500;font-family:inherit}
+.pill:hover,.pill.on{background:var(--red);color:#fff;border-color:var(--red)}
+.hint{font-size:10px;color:var(--text4);margin-top:10px;display:flex;align-items:center;gap:4px}
+
+/* LOADER */
+.ldr{display:none;justify-content:center;align-items:center;padding:44px;gap:10px}
+.spin{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--red);
+  border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ldr-t{font-size:13px;color:var(--text4)}
+
+/* PROMPT */
+.prompt{text-align:center;padding:52px 24px;display:none}
+.prompt svg{margin:0 auto 12px;opacity:.2}
+.prompt h3{font-size:14px;font-weight:600;color:var(--text3);margin-bottom:4px}
+.prompt p{font-size:12px;color:var(--text4)}
+
+/* RESULTS HEADER */
+.rh{display:none;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;
+  background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px 12px;box-shadow:var(--sh)}
+.rh.on{display:flex}
+.result-title{display:block;font-size:14px;font-weight:800;color:var(--text);line-height:1.2}
+.result-sub{display:block;font-size:10.5px;color:var(--text4);margin-top:2px;font-weight:600;letter-spacing:.25px;text-transform:uppercase}
+.sort-btn{font-size:11px;color:var(--text2);padding:7px 11px;border:1px solid var(--border);
+  border-radius:999px;background:var(--surface2);cursor:pointer;font-family:inherit;font-weight:700;white-space:nowrap}
+.sort-btn:hover{border-color:var(--red);color:var(--red-t)}
+.filter-chips{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.filter-chip{display:inline-flex;align-items:center;font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:999px;
+  color:var(--red-t);background:var(--red3);border:1px solid rgba(127,29,29,.14)}
+
+/* GRID */
+.rgrid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:600px){.rgrid{grid-template-columns:1fr 1fr}}
+
+/* FLOOR GROUPS */
+.floor-head{--floor:var(--red);--floor-bg:var(--red3);grid-column:1/-1;margin:8px 0 0;padding:11px 12px;border:1px solid var(--border);
+  border-left:5px solid var(--floor);border-radius:14px;background:linear-gradient(90deg,var(--floor-bg),var(--surface));
+  display:flex;align-items:center;justify-content:space-between;box-shadow:var(--sh);gap:10px}
+.floor-head.floor-gf{--floor:#0f766e;--floor-bg:var(--teal-bg)}
+.floor-head.floor-f1{--floor:#1e40af;--floor-bg:var(--blue-bg)}
+.floor-head.floor-f2{--floor:#5b21b6;--floor-bg:var(--purple-bg)}
+.floor-head.floor-f3{--floor:#92400e;--floor-bg:var(--amber-bg)}
+.floor-left{min-width:0}
+.floor-title{font-size:14px;font-weight:900;color:var(--text);letter-spacing:.2px}
+.floor-sub{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.floor-count{font-size:11px;font-weight:900;color:var(--floor);background:var(--surface);border:1px solid var(--border);
+  border-radius:999px;padding:5px 9px;white-space:nowrap}
+
+/* CARD */
+.rcard{background:var(--surface);border:1px solid var(--border);border-radius:18px;
+  overflow:hidden;box-shadow:var(--sh);transition:box-shadow .15s,transform .15s,border-color .15s;position:relative}
+.rcard:hover{box-shadow:var(--sh-md);transform:translateY(-2px);border-color:var(--border2)}
+.rcard.owner{border-top:4px solid #1e40af}
+.rcard.tenant{border-top:4px solid #92400e}
+.rcard.other{border-top:4px solid var(--red)}
+.rcard.floor-gf .fc-in{background:linear-gradient(135deg,#0f766e,#14b8a6)}
+.rcard.floor-f1 .fc-in{background:linear-gradient(135deg,#1e40af,#60a5fa)}
+.rcard.floor-f2 .fc-in{background:linear-gradient(135deg,#5b21b6,#a78bfa)}
+.rcard.floor-f3 .fc-in{background:linear-gradient(135deg,#92400e,#f59e0b)}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;
+  padding:12px 14px 10px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(255,255,255,.45),transparent)}
+.rname{font-size:15px;font-weight:700;color:var(--text);line-height:1.3;word-break:break-word}
+.rbadges{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.badge{display:inline-flex;align-items:center;gap:2px;
+  font-size:10px;font-weight:600;padding:2px 7px;border-radius:20px}
+.b-owner{background:var(--blue-bg);color:var(--blue)}
+.b-tenant{background:var(--amber-bg);color:var(--amber)}
+.b-ok{background:var(--green-bg);color:var(--green)}
+.b-floor{background:var(--purple-bg);color:var(--purple)}
+.b-gf{background:var(--teal-bg);color:var(--teal)}
+.fc{text-align:center;flex-shrink:0;margin-left:8px}
+.fc-in{display:inline-block;background:linear-gradient(135deg,var(--red),#991b1b);color:#fff;
+  font-size:13px;font-weight:700;padding:7px 11px;border-radius:9px;
+  font-family:"SF Mono",SFMono-Regular,Menlo,monospace;
+  white-space:nowrap;min-width:66px;text-align:center;box-shadow:0 6px 14px rgba(0,0,0,.12)}
+.fc-in small{font-size:9px;display:block;opacity:.8;margin-top:1px;font-weight:400;font-family:inherit}
+.cb{padding:10px 12px 12px;display:grid;gap:8px}
+.crow{display:flex;align-items:flex-start;gap:8px;margin-bottom:0;background:var(--surface2);
+  border:1px solid var(--border);border-radius:12px;padding:8px}
+.crow:last-child{margin-bottom:0}
+.cicon{flex-shrink:0;width:16px;height:16px;margin-top:1px;color:var(--red-t)}
+.clabel{font-size:10.5px;color:var(--text4);font-weight:500;margin-bottom:1px}
+.cval{font-size:12.5px;color:var(--text2);font-weight:500;line-height:1.4}
+.cval.mono{font-family:"SF Mono",SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.4px}
+.cval.muted{color:var(--text4);font-style:italic;font-size:12px}
+.plates{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+.plate{font-family:"SF Mono",monospace;font-size:11px;font-weight:700;
+  padding:3px 8px;border-radius:5px;border:1.5px solid var(--border2);
+  background:var(--surface2);color:var(--text);letter-spacing:.5px;text-transform:uppercase}
+.cf{padding:6px 14px;background:var(--surface2);border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center}
+.cts{font-size:9.5px;color:var(--text4)}
+
+/* NO RESULT */
+.nores{background:var(--surface);border:1px solid var(--border);border-radius:var(--rl);
+  padding:44px 24px;text-align:center;grid-column:1/-1}
+.nores svg{margin:0 auto 10px;opacity:.25}
+.nores p{font-size:13px;color:var(--text3);margin-top:6px}
+.nores .sub{font-size:11px;color:var(--text4);margin-top:4px}
+
+footer{text-align:center;padding:16px 16px 40px;font-size:10px;color:var(--text4);
+  max-width:960px;margin:0 auto;line-height:1.7;border-top:1px solid var(--border);margin-top:20px}
 </style>
 </head>
 <body>
-<header>
-  <h1>🏢 Society Owner Registration</h1>
-  <div class="sub" id="sub">Loading live data from Google Form responses…</div>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="hdr-t">
+      <div class="hdr-kn">ಮಾಳಗಳ ಬಿ.ಡಿ.ಎ. ಅಪಾರ್ಟ್‌ಮೆಂಟ್ ಮಾಲೀಕರ ಕ್ಷೇಮಾಭಿವೃದ್ಧಿ ಸಂಘ (ರಿ.)</div>
+      <div class="hdr-en">MALAGALA BDA APARTMENTS OWNERS WELFARE ASSOCIATION ®</div>
+      <div class="hdr-addr">
+        Reg. No: SOR/RJR/S-91/2016-17 &nbsp;·&nbsp; Survey No: 53 &amp; 36, Malagala, Panchasheela Nagar<br>
+        Near Moodalapalya Circle, Nagarabhavi Post, Bangalore – 560 072
+      </div>
+    </div>
+    <div class="hdr-r">
+      <div class="hdr-st" id="hdr-st">
+        <span class="sl">Last Form Submitted On</span>
+        <div class="sn" id="hst-n">—</div>
+      </div>
+      <button class="dark-btn" id="dark-btn" onclick="toggleDark()" aria-label="Toggle dark mode">🌙</button>
+    </div>
+  </div>
 </header>
-<main id="app">
-  <div class="loading"><div class="spin"></div>Fetching responses…</div>
-</main>
-<div class="footer" id="foot"></div>
+
+<div class="main">
+  <div class="scard">
+    <div class="stitle">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"
+           stroke-linecap="round" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      ನಿವಾಸಿ ಹುಡುಕಾಟ &nbsp;/&nbsp; Resident Search
+    </div>
+
+    <div class="srow">
+      <input type="search" id="q" inputmode="search"
+        placeholder="ಹೆಸರು · ಮೊಬೈಲ್ · ವಾಹನ ನಂಬರ್ · Block · Flat · Floor…"
+        autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="btn-go" onclick="doSearch()">
+        <svg width="13" height="13" fill="none" stroke="currentColor"
+             stroke-width="2.5" stroke-linecap="round" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        Search
+      </button>
+    </div>
+
+    <div class="fgrid">
+      <select class="fsel" id="f-block" onchange="syncPills();doSearch()">
+        <option value="">All Blocks (B1–B18)</option>
+      </select>
+      <select class="fsel" id="f-flat" onchange="doSearch()">
+        <option value="">All Flats</option>
+        <optgroup label="Ground Floor">
+          <option value="001">001 — Ground Floor</option>
+          <option value="002">002 — Ground Floor</option>
+          <option value="003">003 — Ground Floor</option>
+          <option value="004">004 — Ground Floor</option>
+        </optgroup>
+        <optgroup label="1st Floor">
+          <option value="101">101 — 1st Floor</option>
+          <option value="102">102 — 1st Floor</option>
+          <option value="103">103 — 1st Floor</option>
+          <option value="104">104 — 1st Floor</option>
+        </optgroup>
+        <optgroup label="2nd Floor">
+          <option value="201">201 — 2nd Floor</option>
+          <option value="202">202 — 2nd Floor</option>
+          <option value="203">203 — 2nd Floor</option>
+          <option value="204">204 — 2nd Floor</option>
+        </optgroup>
+        <optgroup label="3rd Floor">
+          <option value="301">301 — 3rd Floor</option>
+          <option value="302">302 — 3rd Floor</option>
+          <option value="303">303 — 3rd Floor</option>
+          <option value="304">304 — 3rd Floor</option>
+        </optgroup>
+      </select>
+      <select class="fsel" id="f-type" onchange="doSearch()">
+        <option value="">Owner / Tenant</option>
+        <option value="owner">🏠 Owner</option>
+        <option value="tenant">🏘 Tenant</option>
+      </select>
+      <select class="fsel" id="f-veh" onchange="doSearch()">
+        <option value="">Any Vehicle</option>
+        <option value="has">Has Vehicle</option>
+        <option value="none">No Vehicle</option>
+        <option value="2w">🛵 2-Wheeler</option>
+        <option value="4w">🚗 4-Wheeler</option>
+        <option value="both">Both Types</option>
+      </select>
+    </div>
+
+    <div class="arow">
+      <button class="btn-clear" onclick="clearAll()">✕ &nbsp;Clear Search</button>
+      <div class="res-sum" id="res-sum"></div>
+    </div>
+
+    <div class="qlabel">Quick block filter:</div>
+    <div class="qpills" id="qpills"></div>
+
+    <p class="hint">
+      <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/>
+      </svg>
+      Press Enter or tap Search · You can also search GroundFloor, FirstFloor, SecondFloor or ThirdFloor
+    </p>
+  </div>
+
+  <!-- Loader -->
+  <div class="ldr" id="loader">
+    <div class="spin"></div>
+    <span class="ldr-t" id="ldr-t">Loading resident directory…</span>
+  </div>
+
+  <!-- Prompt -->
+  <div class="prompt" id="prompt">
+    <svg width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path stroke-linecap="round" d="m21 21-4.35-4.35"/>
+    </svg>
+    <h3>ಹುಡುಕಾಟ ಮಾಡಿ / Search Residents</h3>
+    <p>ಹೆಸರು, ಬ್ಲಾಕ್, ಫ್ಲಾಟ್, ಮೊಬೈಲ್, ವಾಹನ ನಂಬರ್ ಅಥವಾ ಫ್ಲೋರ್ ನಮೂದಿಸಿ</p>
+    <p style="margin-top:4px">Enter name, block, flat, mobile, vehicle number or floor above</p>
+  </div>
+
+  <!-- Results header -->
+  <div class="rh" id="rh">
+    <span id="rc" style="font-size:12px;color:var(--text3)"></span>
+    <button class="sort-btn" onclick="toggleSort()">⇅ Sort: <span id="sort-lbl">Block / Flat</span></button>
+  </div>
+
+  <div class="rgrid" id="grid"></div>
+</div>
+
+<footer>
+  <strong style="color:var(--red-t)">MBDAAOWA</strong> &nbsp;·&nbsp;
+  ಮಾಳಗಳ ಬಿ.ಡಿ.ಎ. ಅಪಾರ್ಟ್‌ಮೆಂಟ್ ಮಾಲೀಕರ ಕ್ಷೇಮಾಭಿವೃದ್ಧಿ ಸಂಘ (ರಿ.) &nbsp;·&nbsp; Reg. SOR/RJR/S-91/2016-17<br>
+  Survey No: 53 &amp; 36, Malagala, Panchasheela Nagar, Near Moodalapalya Circle, Nagarabhavi Post, Bangalore – 560 072<br>
+  <span style="color:var(--text4)">Read-only resident verification portal · Live data from Google Sheets</span>
+</footer>
 
 <script>
-const SHEET_ID = "1QQ6lkJAO2oZprVqUWPyV5S4ouROkoxAJuHg_p287a14";
-const SHEET_NAME = "Form Responses 1";
-const GVIZ = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(SHEET_NAME)}&t=${Date.now()}`;
+/* ─── CONFIG ─── */
+const SHEET_ID = '1QQ6lkJAO2oZprVqUWPyV5S4ouROkoxAJuHg_p287a14';
+const SHEET    = encodeURIComponent('Form Responses 1');
+const GVZ      = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET}`;
 
-const REMINDER_MSG = "Namaste! Please complete your BDA society owner registration form: https://forms.gle/ — thank you.";
+/* ─── STATE ─── */
+let ALL = [], CUR = [], SORT = 'block', READY = false;
+const FLOOR_ORDER = ['gf','f1','f2','f3','other'];
+const FLOOR_META = {
+  gf:{title:'Ground Floor', sub:'Flats 001–004'},
+  f1:{title:'First Floor',  sub:'Flats 101–104'},
+  f2:{title:'Second Floor', sub:'Flats 201–204'},
+  f3:{title:'Third Floor',  sub:'Flats 301–304'},
+  other:{title:'Other Flats', sub:'Unmapped floor'}
+};
 
-let ROWS=[], TAB="summary", Q="", BLOCK_FILTER="";
+/* ─── DARK MODE ─── */
+function toggleDark() {
+  const d = document.documentElement;
+  const now = d.dataset.theme === 'dark';
+  d.dataset.theme = now ? 'light' : 'dark';
+  document.getElementById('dark-btn').textContent = now ? '🌙' : '☀️';
+  try { localStorage.setItem('mbda-theme', d.dataset.theme); } catch(e){}
+}
+(function(){
+  try {
+    const t = localStorage.getItem('mbda-theme');
+    if (t) {
+      document.documentElement.dataset.theme = t;
+      if (t === 'dark') {
+        window.addEventListener('DOMContentLoaded', () => {
+          const b = document.getElementById('dark-btn');
+          if (b) b.textContent = '☀️';
+        });
+      }
+    }
+  } catch(e){}
+})();
 
-async function load(){
-  try{
-    const r = await fetch(GVIZ,{cache:"no-store"});
-    const t = await r.text();
-    const json = JSON.parse(t.substring(t.indexOf("{"), t.lastIndexOf("}")+1));
-    ROWS = parseGviz(json);
-    document.getElementById("sub").textContent =
-      `${ROWS.length} responses · updated ${new Date().toLocaleString()}`;
-    render();
-  }catch(e){
-    document.getElementById("app").innerHTML =
-      `<div class="card"><b>Failed to load.</b><br><span class="sub">${e.message}</span><br><br>
-       Make sure the Google Sheet is shared as <b>Anyone with link — Viewer</b>.</div>`;
+/* ─── BOOT ─── */
+window.addEventListener('DOMContentLoaded', () => {
+  showLoader(true, 'Loading resident directory…');
+  fetch(GVZ)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(txt => {
+      const start = txt.indexOf('{');
+      const end = txt.lastIndexOf('}');
+      if (start < 0 || end < 0) throw new Error('Invalid Google Sheets response');
+      const json = JSON.parse(txt.substring(start, end + 1));
+      ingest(json);
+    })
+    .catch(err => {
+      showLoader(true, '⚠ Could not load data. Ensure Google Sheet is shared as Viewer.', true);
+      console.error(err);
+    });
+
+  document.getElementById('q').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doSearch();
+  });
+});
+
+/* ─── INGEST ──────────────────────────────────────────────────────────────────
+   Form Responses 1 column map:
+     c[0] = Timestamp
+     c[1] = Email
+     c[2] = Score/WA ref
+     c[3] = Full Name
+     c[4] = WhatsApp / Mobile
+     c[5] = Block  (e.g. "B7")
+     c[6] = Flat   (supports raw 1/2/3/4 and formatted 001/002/003/004)
+     c[7] = Resident Type
+     c[8] = Vehicle Number
+     c[9] = Vehicle Type
+     c[10] = BLock-Flat fallback (e.g. B18-001)
+──────────────────────────────────────────────────────────────────────────── */
+function ingest(json) {
+  const rows = json.table.rows || [];
+
+  ALL = rows.map(row => {
+    const c = row.c || [];
+
+    // Safe getter — always returns a plain string.
+    const g = i => {
+      if (!c[i]) return '';
+      const cell = c[i];
+      const val = (i === 0 && cell.f != null) ? cell.f : (cell.v != null ? cell.v : cell.f);
+      if (val == null) return '';
+      return String(val).trim();
+    };
+
+    const blockFlat = g(10).toUpperCase().replace(/\s/g, '');
+    const block     = normBlock(g(5), blockFlat);
+    const resType = g(7);
+
+    // Ground-floor fix:
+    // Google GViz may send 001/002/003/004 as raw numbers 1/2/3/4,
+    // and in this sheet the main Flat column can be blank for ground floor.
+    // In that case use the BLock-Flat fallback such as "B18-001".
+    const flatCell = c[6] || {};
+    const flatN    = normFlat(flatCell.v, flatCell.f, blockFlat);
+    const floor    = floorLabel(flatN);
+    const fKey     = floorKey(flatN);
+    const vRaw     = g(8);
+
+    return {
+      ts:      g(0),
+      name:    g(3),
+      phone:   g(4),
+      block,
+      flat:    flatN,
+      blockFlat,
+      floor,
+      fKey,
+      resType,
+      rtL:     resType.toLowerCase(),
+      vehicle: vRaw,
+      vType:   g(9),
+      plates:  splitPlates(vRaw),
+      blob:    '',
+    };
+  }).filter(r => r.name.length > 0);
+
+  // Pre-build search blob. Floor aliases allow queries:
+  // GroundFloor, FirstFloor, SecondFloor, ThirdFloor.
+  ALL.forEach(r => {
+    r.blob = [
+      r.name, r.phone, r.block, r.flat, r.blockFlat, r.floor, floorAliases(r.flat),
+      r.vehicle, r.vType, r.resType
+    ].join(' ').toLowerCase();
+  });
+
+  ALL.sort((a, b) => a.name.localeCompare(b.name));
+
+  buildBlockDD();
+  buildPills();
+  renderStats();
+  showLoader(false);
+  showPrompt(true);
+  READY = true;
+}
+
+/* ─── NORMALISE FLAT ─────────────────────────────────────────────────────
+   Accepts both raw and formatted GViz values.
+   1  → "001"   2  → "002"   3  → "003"   4  → "004"
+   101 → "101"  203 → "203"  304 → "304"  etc.
+────────────────────────────────────────────────────────────────────────── */
+function normBlock(raw, blockFlat) {
+  const direct = String(raw || '').trim().toUpperCase().replace(/\s/g, '');
+  if (direct) return direct;
+  const m = String(blockFlat || '').toUpperCase().match(/\bB\s*(\d{1,2})\b/);
+  return m ? `B${parseInt(m[1], 10)}` : '';
+}
+
+function normFlat(raw, formatted, blockFlat) {
+  const candidates = [formatted, raw, blockFlat].filter(v => v != null && String(v).trim() !== '');
+  if (!candidates.length) return '';
+
+  for (const val of candidates) {
+    const s = String(val).trim().toUpperCase();
+    const bf = s.match(/\bB\s*\d{1,2}\s*[-/]\s*(00[1-4]|[1-3]0[1-4])\b/);
+    if (bf) return bf[1];
+    if (/^00[1-4]$/.test(s)) return s;
+    if (/^[1-3]0[1-4]$/.test(s)) return s;
+  }
+
+  const s = String(candidates[0]).trim();
+  const m = s.match(/\d+/);
+  if (!m) return s;
+  const n = parseInt(m[0], 10);
+  if (isNaN(n)) return s;
+
+  if (n >= 1 && n <= 4)     return String(n).padStart(3, '0');
+  if (n >= 101 && n <= 104) return String(n);
+  if (n >= 201 && n <= 204) return String(n);
+  if (n >= 301 && n <= 304) return String(n);
+  return String(n).padStart(3, '0');
+}
+
+/* ─── FLOOR LABEL ─── */
+function floorLabel(flat) {
+  const n = parseInt(flat, 10);
+  if (isNaN(n))              return '';
+  if (n >= 1   && n <= 4)   return 'Ground Floor';
+  if (n >= 101 && n <= 104) return 'First Floor';
+  if (n >= 201 && n <= 204) return 'Second Floor';
+  if (n >= 301 && n <= 304) return 'Third Floor';
+  return '';
+}
+
+function floorKey(flat) {
+  const n = parseInt(flat, 10);
+  if (isNaN(n))              return 'other';
+  if (n >= 1   && n <= 4)   return 'gf';
+  if (n >= 101 && n <= 104) return 'f1';
+  if (n >= 201 && n <= 204) return 'f2';
+  if (n >= 301 && n <= 304) return 'f3';
+  return 'other';
+}
+
+function floorAliases(flat) {
+  const k = floorKey(flat);
+  if (k === 'gf') return 'ground floor groundfloor ground gf';
+  if (k === 'f1') return 'first floor firstfloor 1st floor 1stfloor';
+  if (k === 'f2') return 'second floor secondfloor 2nd floor 2ndfloor';
+  if (k === 'f3') return 'third floor thirdfloor 3rd floor 3rdfloor';
+  return '';
+}
+
+/* ─── SPLIT VEHICLE PLATES ─── */
+function splitPlates(v) {
+  if (!v) return [];
+  const s = v.toString().trim();
+  if (!s || /^(n\/a|na|nil|none|-+)$/i.test(s)) return [];
+  return s.split(/[,;|\/\n\\]+/)
+    .map(p => p.replace(/\s+/g, ' ').trim().toUpperCase())
+    .filter(p => p.length > 2 && !/^(N\/A|NA|NIL|NONE|NO)$/i.test(p));
+}
+
+/* ─── UNIQUE SORTED BLOCKS ─── */
+function uniqueBlocks() {
+  return [...new Set(ALL.map(r => r.block).filter(Boolean))]
+    .sort((a, b) => (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0));
+}
+
+function blockList() {
+  const fixed = Array.from({length:18}, (_, i) => `B${i + 1}`);
+  const found = uniqueBlocks();
+  return [...new Set([...fixed, ...found])]
+    .sort((a, b) => (parseInt(a.replace(/\D/g,''))||0) - (parseInt(b.replace(/\D/g,''))||0));
+}
+
+/* ─── BUILD UI ─── */
+function buildBlockDD() {
+  const sel = document.getElementById('f-block');
+  sel.innerHTML = '<option value="">All Blocks (B1–B18)</option>';
+  blockList().forEach(b => {
+    const o = document.createElement('option');
+    o.value = b; o.textContent = b; sel.appendChild(o);
+  });
+}
+
+function buildPills() {
+  const c = document.getElementById('qpills');
+  c.innerHTML = '';
+  blockList().forEach(b => {
+    const p = document.createElement('button');
+    p.className = 'pill'; p.textContent = b; p.type = 'button';
+    p.onclick = () => {
+      document.getElementById('f-block').value = b;
+      document.getElementById('q').value       = '';
+      document.getElementById('f-flat').value  = '';
+      document.getElementById('f-type').value  = '';
+      document.getElementById('f-veh').value   = '';
+      syncPills();
+      doSearch();
+    };
+    c.appendChild(p);
+  });
+}
+
+function syncPills() {
+  const b = document.getElementById('f-block').value;
+  document.querySelectorAll('.pill').forEach(p => p.classList.toggle('on', p.textContent === b));
+}
+
+function renderStats() {
+  const latest = [...ALL].reverse().find(r => r.ts)?.ts || '--';
+  const st = document.getElementById('hdr-st');
+  st.style.display = 'block';
+  st.innerHTML = `<span class="sl">Last Form Submitted On</span><div class="sn">${esc(latest)}</div>`;
+}
+
+/* ─── SEARCH ─── */
+function doSearch() {
+  if (!READY) return;
+  const q   = document.getElementById('q').value.trim().toLowerCase();
+  const blk = document.getElementById('f-block').value;
+  const flt = document.getElementById('f-flat').value;
+  const typ = document.getElementById('f-type').value.toLowerCase();
+  const vf  = document.getElementById('f-veh').value;
+
+  if (!q && !blk && !flt && !typ && !vf) {
+    showPrompt(true);
+    document.getElementById('rh').classList.remove('on');
+    document.getElementById('grid').innerHTML = '';
+    document.getElementById('res-sum').style.display = 'none';
+    return;
+  }
+
+  showPrompt(false);
+
+  CUR = ALL.filter(r => {
+    if (q && !r.blob.includes(q))               return false;
+    if (blk && r.block !== blk)                 return false;
+    if (flt && r.flat !== flt)                  return false;
+    if (typ && !r.rtL.includes(typ))            return false;
+    if (vf === 'has'  && !r.plates.length)      return false;
+    if (vf === 'none' &&  r.plates.length)      return false;
+    if (vf === '2w'   && !/(2[\s-]?wheel|two[\s-]?wheel|bike|scooter)/i.test(r.vType)) return false;
+    if (vf === '4w'   && !/(4[\s-]?wheel|four[\s-]?wheel|car)/i.test(r.vType)) return false;
+    if (vf === 'both' &&
+       !(/(2[\s-]?wheel|two[\s-]?wheel|bike|scooter)/i.test(r.vType) &&
+         /(4[\s-]?wheel|four[\s-]?wheel|car)/i.test(r.vType))) return false;
+    return true;
+  });
+
+  applySortRender();
+}
+
+function clearAll() {
+  document.getElementById('q').value       = '';
+  document.getElementById('f-block').value = '';
+  document.getElementById('f-flat').value  = '';
+  document.getElementById('f-type').value  = '';
+  document.getElementById('f-veh').value   = '';
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('on'));
+  showPrompt(true);
+  document.getElementById('rh').classList.remove('on');
+  document.getElementById('grid').innerHTML = '';
+  document.getElementById('res-sum').style.display = 'none';
+  document.getElementById('q').focus();
+}
+
+function toggleSort() {
+  const m = ['name','block','ts'];
+  SORT = m[(m.indexOf(SORT)+1) % m.length];
+  document.getElementById('sort-lbl').textContent =
+    SORT==='name' ? 'Name A–Z' : SORT==='block' ? 'Block / Flat' : 'Date';
+  applySortRender();
+}
+
+function applySortRender() {
+  if (SORT === 'name')
+    CUR.sort((a,b) => a.name.localeCompare(b.name));
+  else if (SORT === 'block')
+    CUR.sort((a,b) => {
+      const nb = x => parseInt(x.replace(/\D/g,''))||0;
+      return nb(a.block)-nb(b.block) || a.flat.localeCompare(b.flat);
+    });
+  else
+    CUR.sort((a,b) => b.ts.localeCompare(a.ts));
+  renderGrid();
+}
+
+function activeFilterChips() {
+  const q   = document.getElementById('q').value.trim();
+  const blk = document.getElementById('f-block').value;
+  const flt = document.getElementById('f-flat').value;
+  const typ = document.getElementById('f-type').value;
+  const vf  = document.getElementById('f-veh').value;
+  const chips = [];
+  if (q)   chips.push(`Search: ${q}`);
+  if (blk) chips.push(`Block ${blk}`);
+  if (flt) chips.push(`Flat ${flt}`);
+  if (typ) chips.push(typ === 'owner' ? 'Owner' : 'Tenant');
+  if (vf)  chips.push(document.querySelector(`#f-veh option[value="${vf}"]`)?.textContent || vf);
+  return chips.length ? chips : ['Floor-wise results'];
+}
+
+/* ─── RENDER ─── */
+function renderGrid() {
+  const grid = document.getElementById('grid');
+  const rh   = document.getElementById('rh');
+  const rc   = document.getElementById('rc');
+  const rs   = document.getElementById('res-sum');
+
+  grid.innerHTML = '';
+  rh.classList.add('on');
+
+  const n = CUR.length;
+  rc.innerHTML = '<span class="result-title">Search / Query Result</span><span class="result-sub">Systematic floor-wise resident list</span>';
+  rs.innerHTML = n ? `<div class="filter-chips">${activeFilterChips().map(c => `<span class="filter-chip">${esc(c)}</span>`).join('')}</div>` : '';
+  rs.style.display = n ? 'block' : 'none';
+
+  if (n === 0) {
+    grid.innerHTML = `
+      <div class="nores">
+        <svg width="40" height="40" fill="none" stroke="currentColor"
+             stroke-width="1.2" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/>
+          <path stroke-linecap="round" d="m21 21-4.35-4.35"/>
+        </svg>
+        <p>ಯಾವುದೇ ದಾಖಲೆ ಕಂಡುಬಂದಿಲ್ಲ / No records found</p>
+        <p class="sub">Try a different name, block, flat number, floor, or vehicle number</p>
+      </div>`;
+    return;
+  }
+
+  const displayRows = CUR.slice(0, 100);
+  FLOOR_ORDER.forEach(k => {
+    const rows = displayRows.filter(r => r.fKey === k);
+    if (!rows.length) return;
+    grid.appendChild(makeFloorHead(k, rows.length));
+    rows.forEach(r => grid.appendChild(makeCard(r)));
+  });
+
+  if (n > 100) {
+    const note = document.createElement('p');
+    note.style.cssText = 'text-align:center;font-size:12px;color:var(--text4);grid-column:1/-1;padding:10px';
+    note.textContent = 'Showing first 100 results — refine your search for more specific results.';
+    grid.appendChild(note);
   }
 }
 
-function parseGviz(j){
-  const cols = j.table.cols.map(c=> (c.label||c.id||"").trim());
-  const idx = {};
-  cols.forEach((l,i)=>{
-    const k = l.toLowerCase();
-    if(!idx.ts && k.includes("timestamp")) idx.ts=i;
-    else if(!idx.email && k.includes("email")) idx.email=i;
-    else if(!idx.name && k.includes("name")) idx.name=i;
-    else if(!idx.phone && (k.includes("whatsapp")||k.includes("mobile")||k.includes("phone")||k.includes("number"))) {
-      if(!k.includes("flat")&&!k.includes("block")&&!k.includes("vehicle")) idx.phone=i;
-    }
-    if(!idx.block && k.startsWith("block")) idx.block=i;
-    if(!idx.flat && k.startsWith("flat")) idx.flat=i;
-    if(!idx.resident && k.includes("resident")) idx.resident=i;
-    if(!idx.vnum && k.includes("vehicle")) idx.vnum=i;
-    if(!idx.vtype && (k==="type"||k.includes("vehicle type"))) idx.vtype=i;
-    if(!idx.bf && (k.replace(/\s/g,"")==="block-flat"||k.toLowerCase().includes("block-flat"))) idx.bf=i;
-  });
-  return j.table.rows.map(r=>{
-    const g = i => (i==null||!r.c[i])?"":(r.c[i].f||r.c[i].v||"");
-    const gd = i => (i==null||!r.c[i]||!r.c[i].v)?null:
-      (typeof r.c[i].v==="string"&&r.c[i].v.startsWith("Date("))
-        ? new Date(...r.c[i].v.slice(5,-1).split(",").map(Number))
-        : new Date(r.c[i].v);
-    const bf = String(g(idx.bf)||"").trim();
-    let block = String(g(idx.block)||"").trim();
-    let flat = String(g(idx.flat)||"").trim();
-    if(bf && bf.includes("-")){ const [b,f]=bf.split("-"); block=block||b; flat=flat||f; }
-    const flatId = normalizeFlat(block,flat,bf);
-    const phone = normalizePhone(g(idx.phone));
-    return{
-      ts: gd(idx.ts),
-      email: String(g(idx.email)||"").trim().toLowerCase(),
-      name: titleCase(String(g(idx.name)||"").trim()),
-      phone,
-      block: normalizeBlock(block),
-      flat: String(flat).replace(/\D/g,""),
-      flatId,
-      resident: String(g(idx.resident)||"").trim(),
-      vnum: String(g(idx.vnum)||"").trim().toUpperCase().replace(/\s+/g,""),
-      vtype: String(g(idx.vtype)||"").trim(),
-      _phoneValid: /^[6-9]\d{9}$/.test(phone),
-      _flatValid: !!flatId,
-    };
-  });
-}
-
-function normalizeBlock(b){
-  const m = String(b||"").match(/\d+/);
-  return m ? "B"+String(m[0]).padStart(2,"0") : "";
-}
-function normalizeFlat(block,flat,bf){
-  const b = normalizeBlock(block) || (bf.match(/B?\d+/i)?.[0] ? "B"+String(bf.match(/\d+/)[0]).padStart(2,"0"):"");
-  let f = String(flat||"").replace(/\D/g,"");
-  if(!f && bf){ const parts=bf.split(/[-\s]+/); f=(parts[1]||"").replace(/\D/g,""); }
-  if(!b||!f) return "";
-  f = f.padStart(3,"0").slice(-3);
-  return `${b}-${f}`;
-}
-function normalizePhone(v){
-  const d = String(v||"").replace(/\D/g,"");
-  if(d.length===10) return d;
-  if(d.length===12&&d.startsWith("91")) return d.slice(2);
-  if(d.length===11&&d.startsWith("0")) return d.slice(1);
-  const m = d.match(/[6-9]\d{9}/); return m?m[0]:"";
-}
-function titleCase(s){return s.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase())}
-
-function render(){
-  const app = document.getElementById("app");
-  const stats = computeStats();
-  app.innerHTML = `
-    <div class="kpis">
-      <div class="kpi"><div class="n">${stats.total}</div><div class="l">Total responses</div></div>
-      <div class="kpi"><div class="n">${stats.uniqueFlats}</div><div class="l">Unique flats</div></div>
-      <div class="kpi"><div class="n">${stats.duplicates}</div><div class="l">Duplicate flats</div></div>
-      <div class="kpi"><div class="n">${stats.invalid}</div><div class="l">Data issues</div></div>
+function makeFloorHead(k, count) {
+  const meta = FLOOR_META[k] || FLOOR_META.other;
+  const div = document.createElement('div');
+  div.className = `floor-head floor-${k}`;
+  div.innerHTML = `
+    <div class="floor-left">
+      <div class="floor-title">${esc(meta.title)}</div>
+      <div class="floor-sub">${esc(meta.sub)}</div>
     </div>
-    <div class="toolbar">
-      <div class="search">
-        <input id="q" placeholder="Search name, flat, phone, email…" value="${escapeHtml(Q)}" autocomplete="off"/>
-        <button class="clear-btn" onclick="clearSearch()">CLEAR</button>
+    <span class="floor-count">${count} record${count!==1?'s':''}</span>`;
+  return div;
+}
+
+/* ─── MAKE CARD ─── */
+function makeCard(r) {
+  const div = document.createElement('div');
+  const isOwner  = /owner/i.test(r.rtL);
+  const isTenant = /tenant/i.test(r.rtL);
+  div.className = `rcard floor-${r.fKey} ` + (isOwner ? 'owner' : isTenant ? 'tenant' : 'other');
+
+  const isGF   = ['001','002','003','004'].includes(r.flat);
+  const floor  = r.floor || floorLabel(r.flat);
+  const hasVeh = r.plates.length > 0;
+
+  const typeBadge = r.resType
+    ? `<span class="badge ${isOwner?'b-owner':isTenant?'b-tenant':'b-ok'}">${isOwner?'🏠':'🏘'} ${esc(r.resType)}</span>`
+    : '';
+  const floorBadge = floor
+    ? `<span class="badge ${isGF?'b-gf':'b-floor'}">${esc(floor)}</span>` : '';
+
+  const phoneRow = r.phone ? `
+    <div class="crow">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
+                 A19.5 19.5 0 013 5.18 2 2 0 015 3h3a2 2 0 012 1.72
+                 c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.09 10.91
+                 a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45
+                 c.907.339 1.85.573 2.81.7A2 2 0 0122 17z"/>
+      </svg>
+      <div>
+        <div class="clabel">Mobile / WhatsApp</div>
+        <div class="cval mono">${esc(r.phone)}</div>
       </div>
-      <select id="blk" onchange="BLOCK_FILTER=this.value;render()">
-        <option value="">All blocks</option>
-        ${stats.blocks.map(b=>`<option ${b===BLOCK_FILTER?"selected":""}>${b}</option>`).join("")}
-      </select>
-      <button class="btn" onclick="load()">↻ Refresh</button>
-    </div>
-    <div class="tabs">
-      ${tab("summary","Summary")}${tab("directory","Directory")}
-      ${tab("blocks","By Block")}${tab("duplicates","Duplicates")}
-      ${tab("issues","Data Issues")}${tab("vehicles","Vehicles")}
-      ${tab("whatsapp","WhatsApp")}
-    </div>
-    <div id="view"></div>`;
-  document.getElementById("q").addEventListener("input",e=>{Q=e.target.value;renderView(stats)});
-  renderView(stats);
-  document.getElementById("foot").textContent =
-    `Source: Google Form responses · Sheet ID ${SHEET_ID.slice(0,8)}… · Read-only.`;
-}
+    </div>` : '';
 
-function tab(id,label){return `<div class="tab ${TAB===id?"active":""}" onclick="TAB='${id}';render()">${label}</div>`}
-function clearSearch(){Q="";render()}
-
-function computeStats(){
-  const total = ROWS.length;
-  const flats = {}, blocks = {};
-  ROWS.forEach(r=>{
-    if(r.flatId){ flats[r.flatId]=(flats[r.flatId]||0)+1 }
-    if(r.block) blocks[r.block]=(blocks[r.block]||0)+1;
-  });
-  const uniqueFlats = Object.keys(flats).length;
-  const duplicates = Object.values(flats).filter(n=>n>1).reduce((a,n)=>a+(n-1),0);
-  const invalid = ROWS.filter(r=>!r._flatValid||!r._phoneValid||!r.name).length;
-  return {total,uniqueFlats,duplicates,invalid,flats,
-    blocks:Object.keys(blocks).sort()};
-}
-
-function filtered(){
-  const q = Q.trim().toLowerCase();
-  return ROWS.filter(r=>{
-    if(BLOCK_FILTER && r.block!==BLOCK_FILTER) return false;
-    if(!q) return true;
-    return [r.name,r.email,r.phone,r.flatId,r.vnum].join(" ").toLowerCase().includes(q);
-  });
-}
-
-function renderView(stats){
-  const v = document.getElementById("view");
-  const rows = filtered();
-  if(TAB==="summary") v.innerHTML = viewSummary(stats,rows);
-  else if(TAB==="directory") v.innerHTML = viewDirectory(rows);
-  else if(TAB==="blocks") v.innerHTML = viewBlocks(stats,rows);
-  else if(TAB==="duplicates") v.innerHTML = viewDuplicates(stats);
-  else if(TAB==="issues") v.innerHTML = viewIssues();
-  else if(TAB==="vehicles") v.innerHTML = viewVehicles(rows);
-  else if(TAB==="whatsapp") v.innerHTML = viewWhatsApp();
-}
-
-function viewSummary(s,rows){
-  const residents = {};
-  ROWS.forEach(r=>{ const k=r.resident||"—"; residents[k]=(residents[k]||0)+1 });
-  const veh = {}; ROWS.forEach(r=>{ const k=r.vtype||"—"; veh[k]=(veh[k]||0)+1 });
-  const latest = [...ROWS].filter(r=>r.ts).sort((a,b)=>b.ts-a.ts).slice(0,5);
-  return `
-    <div class="card"><h2>Resident type</h2>${barList(residents,ROWS.length)}</div>
-    <div class="card"><h2>Vehicle type</h2>${barList(veh,ROWS.length)}</div>
-    <div class="card"><h2>Latest 5 submissions</h2>
-      <div class="tblwrap"><table><thead><tr><th>When</th><th>Flat</th><th>Name</th></tr></thead>
-      <tbody>${latest.map(r=>`<tr><td>${fmtDate(r.ts)}</td><td>${r.flatId||"—"}</td><td>${escapeHtml(r.name)}</td></tr>`).join("")||empty()}</tbody></table></div>
+  const vRow = hasVeh ? `
+    <div class="crow">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round">
+        <rect x="1" y="9" width="22" height="9" rx="2"/>
+        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+        <path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
+      </svg>
+      <div>
+        <div class="clabel">Vehicle${r.plates.length>1?'s':''}</div>
+        <div class="plates">${r.plates.map(p=>`<span class="plate">${esc(p)}</span>`).join('')}</div>
+        ${r.vType?`<div style="font-size:10px;color:var(--text4);margin-top:3px">${esc(r.vType)}</div>`:''}
+      </div>
+    </div>` : `
+    <div class="crow">
+      <svg class="cicon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.8" stroke-linecap="round" style="opacity:.18">
+        <rect x="1" y="9" width="22" height="9" rx="2"/>
+        <circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>
+        <path d="M5 9V7a2 2 0 012-2h10a2 2 0 012 2v2"/>
+      </svg>
+      <div>
+        <div class="clabel">Vehicle</div>
+        <div class="cval muted">None registered</div>
+      </div>
     </div>`;
-}
-function viewDirectory(rows){
-  return `<div class="card"><h2>Owners (${rows.length})</h2><div class="tblwrap">
-    <table><thead><tr><th>Flat</th><th>Name</th><th>Phone</th><th>Vehicle</th></tr></thead>
-    <tbody>${rows.map(r=>`<tr>
-      <td>${r.flatId||`<span class="pill bad">?</span>`}</td>
-      <td>${escapeHtml(r.name)||`<span class="pill warn">missing</span>`}<br><span class="sub">${escapeHtml(r.email)}</span></td>
-      <td>${r._phoneValid?`<a href="tel:${r.phone}">${r.phone}</a>`:`<span class="pill bad">${r.phone||"—"}</span>`}</td>
-      <td>${escapeHtml(r.vnum)||"—"}<br><span class="sub">${escapeHtml(r.vtype)}</span></td>
-    </tr>`).join("")||empty()}</tbody></table></div></div>`;
-}
-function viewBlocks(s){
-  const rows = Object.entries(s.blocks.reduce((a,b)=>{a[b]=ROWS.filter(r=>r.block===b).length;return a},{}))
-    .sort((a,b)=>a[0].localeCompare(b[0]));
-  const max = Math.max(...rows.map(r=>r[1]),1);
-  return `<div class="card"><h2>Responses per block</h2>
-    <table><tbody>${rows.map(([b,n])=>`<tr>
-      <td style="width:60px"><b>${b}</b></td><td>${n}<div class="bar"><i style="width:${n/max*100}%"></i></div></td>
-    </tr>`).join("")}</tbody></table></div>`;
-}
-function viewDuplicates(s){
-  const dups = Object.entries(s.flats).filter(([,n])=>n>1).sort((a,b)=>b[1]-a[1]);
-  return `<div class="card"><h2>Duplicate flat submissions (${dups.length})</h2>
-    ${dups.length?`<div class="tblwrap"><table><thead><tr><th>Flat</th><th>#</th><th>Names</th></tr></thead>
-      <tbody>${dups.map(([f,n])=>{
-        const names = ROWS.filter(r=>r.flatId===f).map(r=>escapeHtml(r.name||r.email)).join(", ");
-        return `<tr><td><b>${f}</b></td><td>${n}</td><td>${names}</td></tr>`;
-      }).join("")}</tbody></table></div>`:empty("No duplicates 🎉")}
-  </div>`;
-}
-function viewIssues(){
-  const bad = ROWS.filter(r=>!r._flatValid||!r._phoneValid||!r.name);
-  return `<div class="card"><h2>Rows needing correction (${bad.length})</h2>
-    ${bad.length?`<div class="tblwrap"><table><thead><tr><th>Flat</th><th>Name</th><th>Phone</th><th>Issue</th></tr></thead>
-      <tbody>${bad.map(r=>`<tr>
-        <td>${r.flatId||`<span class="pill bad">missing</span>`}</td>
-        <td>${escapeHtml(r.name)||`<span class="pill warn">missing</span>`}</td>
-        <td>${r._phoneValid?r.phone:`<span class="pill bad">${escapeHtml(r.phone)||"missing"}</span>`}</td>
-        <td>${[!r._flatValid&&"flat",!r._phoneValid&&"phone",!r.name&&"name"].filter(Boolean).join(", ")}</td>
-      </tr>`).join("")}</tbody></table></div>`:empty("All clean ✅")}
-  </div>`;
-}
-function viewVehicles(rows){
-  const g = {}; rows.forEach(r=>{const k=r.vtype||"—"; g[k]=(g[k]||0)+1});
-  const missing = rows.filter(r=>!r.vnum).length;
-  return `<div class="card"><h2>Vehicle breakdown</h2>${barList(g,rows.length)}
-    <p class="sub">Missing vehicle number: <b>${missing}</b></p></div>`;
-}
-function viewWhatsApp(){
-  const bad = ROWS.filter(r=>r._phoneValid && (!r._flatValid||!r.vnum||!r.name));
-  return `<div class="card"><h2>WhatsApp reminders (${bad.length})</h2>
-    <p class="sub">Click to open WhatsApp with a prefilled reminder.</p>
-    <div class="tblwrap"><table><thead><tr><th>Owner</th><th>Phone</th><th>Send</th></tr></thead>
-    <tbody>${bad.map(r=>`<tr>
-      <td>${escapeHtml(r.name)||"—"}<br><span class="sub">${r.flatId||"flat?"}</span></td>
-      <td>${r.phone}</td>
-      <td><a class="wa" target="_blank" href="https://wa.me/91${r.phone}?text=${encodeURIComponent(REMINDER_MSG)}">WhatsApp</a></td>
-    </tr>`).join("")||empty("Nothing pending 🎉")}</tbody></table></div></div>`;
+
+  div.innerHTML = `
+    <div class="ch">
+      <div style="flex:1;min-width:0;padding-right:8px">
+        <div class="rname">${esc(r.name)}</div>
+        <div class="rbadges">
+          ${typeBadge}
+          <span class="badge b-ok">✓ Verified</span>
+          ${floorBadge}
+        </div>
+      </div>
+      <div class="fc">
+        <div class="fc-in">
+          ${esc(r.block)||'—'}
+          <small>Flat ${esc(r.flat)||'—'}</small>
+        </div>
+      </div>
+    </div>
+    <div class="cb">${phoneRow}${vRow}</div>
+    <div class="cf">
+      <span class="cts">Submitted: ${esc(r.ts ? r.ts.substring(0,20) : '—')}</span>
+      <span class="badge b-ok" style="font-size:9px">Active</span>
+    </div>`;
+
+  return div;
 }
 
-function barList(obj,total){
-  const entries = Object.entries(obj).sort((a,b)=>b[1]-a[1]);
-  const max = Math.max(...entries.map(e=>e[1]),1);
-  return `<table><tbody>${entries.map(([k,n])=>`<tr>
-    <td>${escapeHtml(k)}</td><td style="width:60px;text-align:right">${n}</td>
-    <td><div class="bar"><i style="width:${n/max*100}%"></i></div></td>
-  </tr>`).join("")}</tbody></table>`;
+/* ─── HELPERS ─── */
+function esc(s) {
+  return (s||'').toString()
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
-function empty(msg){return `<div class="empty">${msg||"No data"}</div>`}
-function fmtDate(d){return d?d.toLocaleString([], {dateStyle:"short",timeStyle:"short"}):"—"}
-function escapeHtml(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-
-load();
-setInterval(load, 5*60*1000); // auto-refresh every 5 min
+function showLoader(show, txt='', isErr=false) {
+  const w = document.getElementById('loader');
+  w.style.display = show ? 'flex' : 'none';
+  if (show) {
+    document.getElementById('ldr-t').textContent = txt;
+    document.getElementById('ldr-t').style.color = isErr ? '#ef4444' : 'var(--text4)';
+    document.querySelector('.spin').style.display = isErr ? 'none' : 'block';
+  }
+}
+function showPrompt(show) {
+  document.getElementById('prompt').style.display = show ? 'block' : 'none';
+  if (show) {
+    document.getElementById('rh').classList.remove('on');
+    document.getElementById('res-sum').style.display = 'none';
+  }
+}
 </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"75124c326cb447fe934cde04713ae013","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
